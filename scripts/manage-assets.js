@@ -46,5 +46,4 @@ function waitForAssets(timeout) {
     });
 }
 
-// Export the function for external usage
-module.exports = { waitForAssets };
+export { waitForAssets}
