@@ -12,7 +12,6 @@
       "prepublishOnly": "./manage-dependencies.sh",
       "pretest": "./manage-dependencies.sh",
       "prepublish": "./manage-dependencies.sh"
-
   },
   "keywords": [
     "gufn",
