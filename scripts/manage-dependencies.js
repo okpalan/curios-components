@@ -1,4 +1,12 @@
-const { waitForAssets } = require('./manage-assets');
+import fs from 'fs';
+import path from 'path';
+import { waitForAssets } from './manage-assets.js';
+
+
+
+const ASSETS_DIR = path.join(__dirname, '..', 'src', 'assets');
+const DIST_DIR = path.join(__dirname, '..', 'dist', 'assets');
+
 
 const TIMEOUT = 15000; // 15 seconds
 
