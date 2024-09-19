@@ -1,36 +1,49 @@
-@echo off
-SETLOCAL ENABLEDELAYEDEXPANSION
+const fs = require('fs');
+const path = require('path');
 
-echo Starting asset management...
+const ASSETS_DIR = path.join(__dirname, '..', 'src', 'assets');
+const DIST_DIR = path.join(__dirname, '..', 'dist', 'assets');
+const TIMEOUT = 10000; // 10 seconds
 
-REM Define source and destination directories
-SET SOURCE_DIR=src\assets
-SET DEST_DIR=dist\assets
+async function copyAssets() {
+    return new Promise((resolve, reject) => {
+        if (!fs.existsSync(ASSETS_DIR)) {
+            return reject(new Error('Assets directory does not exist.'));
+        }
 
-REM Check if the source directory exists
-IF NOT EXIST "!SOURCE_DIR!" (
-    echo ERROR: Source assets directory does not exist. Exiting.
-    exit /b 1
-)
+        // Create destination directory
+        fs.mkdirSync(DIST_DIR, { recursive: true });
 
-REM Create the destination directory if it does not exist
-IF NOT EXIST "!DEST_DIR!" (
-    echo Creating destination assets directory...
-    mkdir "!DEST_DIR!"
-)
+        fs.readdir(ASSETS_DIR, (err, files) => {
+            if (err) return reject(err);
+            files.forEach(file => {
+                fs.copyFileSync(path.join(ASSETS_DIR, file), path.join(DIST_DIR, file));
+            });
+            console.log('Assets copied successfully.');
+            resolve();
+        });
+    });
+}
 
-echo Copying assets from !SOURCE_DIR! to !DEST_DIR!...
-xcopy "!SOURCE_DIR!\*" "!DEST_DIR!\" /E /I /Y
-IF ERRORLEVEL 1 (
-    echo ERROR: Failed to copy assets. Exiting.
-    exit /b 1
-)
+function waitForAssets(timeout) {
+    return new Promise((resolve, reject) => {
+        const startTime = Date.now();
 
-echo Assets copied successfully.
+        const checkAssets = async () => {
+            if (fs.existsSync(ASSETS_DIR)) {
+                await copyAssets();
+                resolve();
+            } else if (Date.now() - startTime < timeout) {
+                console.log('Waiting for assets directory...');
+                setTimeout(checkAssets, 1000); // Check every second
+            } else {
+                reject(new Error('Timeout reached while waiting for assets directory.'));
+            }
+        };
 
-REM Optional: Print the copied files
-echo Copied files:
-dir "!DEST_DIR!"
+        checkAssets();
+    });
+}
 
-ENDLOCAL
-exit /b 0
+// Export the function for external usage
+module.exports = { waitForAssets };

@@ -1,30 +1,18 @@
-@echo off
-setlocal
+const { waitForAssets } = require('./manage-assets');
 
-echo Starting dependency management...
+const TIMEOUT = 15000; // 15 seconds
 
-REM Define source and destination directories
-set SOURCE_DIR=src
-set DEST_DIR=dist
+async function manageDependencies() {
+    try {
+        await waitForAssets(TIMEOUT);
+        console.log('Dependency management complete.');
+    } catch (error) {
+        console.error('Dependency management failed.');
+        console.error(error);
+        
+        console.error(error.message);
+    }
+}
 
-REM Check if the source directory exists
-if not exist "%SOURCE_DIR%" (
-    echo ERROR: Source directory does not exist. Exiting.
-    exit /b 1
-)
-
-REM Create the destination directory if it does not exist
-if not exist "%DEST_DIR%" (
-    echo Creating destination directory...
-    mkdir "%DEST_DIR%"
-)
-
-echo Managing dependencies...
-REM Add your logic for managing dependencies here
-REM e.g., copy files or perform installation commands
-REM xcopy "%SOURCE_DIR%\some-dependency" "%DEST_DIR%\" /E /I
-
-echo Dependencies managed successfully.
-
-endlocal
-exit /b 0
+// Run the dependency management process
+manageDependencies();
