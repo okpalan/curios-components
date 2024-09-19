@@ -40,7 +40,7 @@
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c -w",
-    "test": "web-test-runner --config test-runner.config.mjs",
+    "test": "npx web-test-runner --config test-runner.config.mjs",
     "serve": "http-server ./fixtures -p 3000 -c-1",
     "prepublishOnly": "npm run manage:dependencies",
     "pretest": "npm run manage:dependencies",
@@ -62,6 +62,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@web/test-runner": "^0.19.0",
+    "@web/test-runner-chrome": "^0.17.0",
     "chai": "^5.1.1",
     "http-server": "^14.1.1",
     "husky": "^8.0.0",
