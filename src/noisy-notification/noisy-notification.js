@@ -192,4 +192,4 @@ export class NoisyNotification extends HTMLElement {
     }
 }
 
-customElements.define('draft-noisy-notification', NoisyNotification);
+customElements.define('noisy-notification', NoisyNotification);
