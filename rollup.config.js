@@ -7,7 +7,9 @@ import postcss from 'rollup-plugin-postcss';
 
 const inputDir = 'src/';
 const outputDir = 'dist';
-const umdDir = path.join(outputDir, 'umd/draft-components');
+const umdDir = path.join(outputDir, 'umd');
+const esmDir = path.join(outputDir, 'esm');
+const cjsDir = path.join(outputDir, 'cjs');
 
 // List all JavaScript files in the src directory
 const components = fs.readdirSync(inputDir).filter(file => file.endsWith('.js') || file === 'index.js');
@@ -15,50 +17,47 @@ const components = fs.readdirSync(inputDir).filter(file => file.endsWith('.js') 
 console.log('Components:', components); // Debugging line
 
 // Create a Rollup config for each component
-const createConfig = (component) => ([ 
-  {
-    input: path.join(inputDir, component),
-    output: [
-      {
-        file: path.join(outputDir, component.replace('.js', '.cjs.js')),
-        format: 'cjs',
-        sourcemap: true
-      },
-      {
-        file: path.join(outputDir, component.replace('.js', '.esm.js')),
-        format: 'esm',
-        sourcemap: true
-      },
-      {
-        file: path.join(outputDir, component.replace('.js', '.amd.js')),
-        format: 'amd',
-        name: 'DraftComponents', // Adjust the name as necessary
-        sourcemap: true
-      },
-      {
-        file: path.join(umdDir, component.replace('.js', '.umd.js')),
-        format: 'umd',
-        name: 'DraftComponents', // Adjust the name as necessary
-        sourcemap: true
-      }
-    ],
-    plugins: [
-      postcss({
-        extract: true, // Extract CSS to a separate file
-        minimize: true, // Minify CSS
-        use: [
-          ['sass', {
-            includePaths: ['src/styles'] 
-          }
-        ]
-    ]
-  }),
-      resolve(),
-      commonjs(),
-      terser() // Call Terser as a function
-    ]
-  }
-]);
+const createConfig = (component) => {
+  const baseName = component.replace('.js', '');
+
+  return [
+    {
+      input: path.join(inputDir, component),
+      output: [
+        {
+          file: path.join(cjsDir, `${baseName}.cjs.js`),
+          format: 'cjs',
+          sourcemap: true
+        },
+        {
+          file: path.join(esmDir, `${baseName}.esm.js`),
+          format: 'esm',
+          sourcemap: true
+        },
+        {
+          file: path.join(umdDir, `${baseName}.umd.js`),
+          format: 'umd',
+          name: 'DraftComponents', // Adjust the name as necessary
+          sourcemap: true
+        }
+      ],
+      plugins: [
+        postcss({
+          extract: path.join(outputDir, `${baseName}.css`), // Extract CSS to the output directory
+          minimize: true, // Minify CSS
+          use: [
+            ['sass', {
+              includePaths: ['src/styles'] // Adjust if your SCSS files are in a different directory
+            }]
+          ]
+        }),
+        resolve(),
+        commonjs(),
+        terser() // Call Terser as a function
+      ]
+    }
+  ];
+};
 
 // Export an array of configurations
 export default components.flatMap(createConfig);
