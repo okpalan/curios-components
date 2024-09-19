@@ -4,8 +4,8 @@ import { waitForAssets } from './manage-assets.js';
 
 
 
-const ASSETS_DIR = path.join(__dirname, '..', 'src', 'assets');
-const DIST_DIR = path.join(__dirname, '..', 'dist', 'assets');
+const ASSETS_DIR = path.join(process.cwd(), 'src', 'assets');
+const DIST_DIR = path.join(process.cwd(),'dist', 'assets');
 
 
 const TIMEOUT = 15000; // 15 seconds
