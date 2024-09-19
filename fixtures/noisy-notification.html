@@ -6,8 +6,42 @@
     <title>Noisy Notification</title>
     <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2/webcomponents-loader.js"></script>
     <script type="module" src="dist/umd/draft-components.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        draft-noisy-notification {
+            display: block;
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
 
+    <draft-noisy-notification state="info-active" tint="1" duration="10000">
+        <div class="noise"></div>
+        <button class="close-button">Close</button>
+        <button class="expand-button">Expand</button>
+    </draft-noisy-notification>
+
+    <script>
+        const notification = document.querySelector('draft-noisy-notification');
+
+        // Add event listeners for testing functionality
+        notification.addEventListener('dismissed', () => {
+            console.log('Notification dismissed');
+            notification.remove();
+        });
+
+        // Optionally, set up button functionality
+        notification.shadowRoot.querySelector('.close-button').addEventListener('click', () => {
+            notification.dismissState();
+        });
+
+        notification.shadowRoot.querySelector('.expand-button').addEventListener('click', () => {
+            notification.toggleExpand();
+        });
+    </script>
 </body>
 </html>
