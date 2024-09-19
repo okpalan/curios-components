@@ -3,7 +3,7 @@ setlocal
 
 set ASSETS_DIR=src\assets
 set DIST_DIR=dist\assets
-set TIMEOUT=30
+set TIMEOUT=8
 
 :: Start timer
 set start_time=%time%
