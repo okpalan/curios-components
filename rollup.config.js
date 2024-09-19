@@ -4,12 +4,14 @@ import terser from '@rollup/plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
+import copy from 'rollup-plugin-copy'; // New plugin for copying assets
 
 const inputDir = 'src/';
 const outputDir = 'dist';
 const umdDir = path.join(outputDir, 'umd');
 const esmDir = path.join(outputDir, 'esm');
 const cjsDir = path.join(outputDir, 'cjs');
+const cssDir = path.join(outputDir, 'css');
 
 // List all JavaScript files in the src directory
 const components = fs.readdirSync(inputDir).filter(file => file.endsWith('.js') || file === 'index.js');
@@ -43,7 +45,7 @@ const createConfig = (component) => {
       ],
       plugins: [
         postcss({
-          extract: path.join(outputDir, `${baseName}.css`), // Extract CSS to the output directory
+          extract: path.join(cssDir, `${baseName}.css`), // Extract CSS to dist/css
           minimize: true, // Minify CSS
           use: [
             ['sass', {
@@ -53,7 +55,17 @@ const createConfig = (component) => {
         }),
         resolve(),
         commonjs(),
-        terser() // Call Terser as a function
+        terser(), // Call Terser as a function
+        copy({
+          targets: [
+            {
+              src: path.join(inputDir, baseName, 'assets/**/*'), // Adjust if your assets are in a different path
+              dest: path.join(outputDir, baseName, 'assets')
+            }
+          ],
+          verbose: true, // Show which files are being copied
+          hook: 'buildEnd' // Run after the build process
+        })
       ]
     }
   ];
