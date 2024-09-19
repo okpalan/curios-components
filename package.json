@@ -2,9 +2,11 @@
   "name": "draft-components",
   "version": "1.0.0",
   "description": "A collection of draft components for Gufn using Rollup.",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
+  "main": "./dist/cjs/index.cjs.js",
+
+  "module": "./dist/esm/index.esm.js",
+  "moduleResolution": "node",
+  
   "type": "module",
   "exports": {
     ".": {
