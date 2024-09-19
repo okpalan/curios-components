@@ -9,7 +9,7 @@ The Draft Components library aims to empower developers and UI designers to coll
 
 ### Unified Approach
 
-Developers are encouraged to document UI problems in `docs/standard/todo.md` and associated issues like `docs/issues/TODO.md`. Each documented problem serves as a reference point for how to approach solutions using Draft Components, allowing for a structured and collaborative resolution process.
+Developers are encouraged to document UI problems in `docs/ps/TODO.md` and associated issues like `docs/issues/TODO.md`. Each documented problem serves as a reference point for how to approach solutions using Draft Components, allowing for a structured and collaborative resolution process.
 
 ### Migration and Implementation
 
