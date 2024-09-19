@@ -1,4 +1,3 @@
-// test-runner.config.mjs
 
 import { createRunner } from '@web/test-runner';
 import { html, fixture } from '@open-wc/testing';
