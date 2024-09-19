@@ -1,8 +1,7 @@
 import { html, fixture } from '@open-wc/testing';
 
 export default {
-  // Use 'chrome' or 'firefox' for browser-based testing
-  browsers: ['chrome'],
+  browsers: ['chrome'], 
   files: './tests/**/*.test.js',
   nodeResolve: true,
   testIsolation: false,
@@ -16,6 +15,4 @@ export default {
       },
     },
   ],
-  testEnvironment: 'jsdom',
-  
 };
