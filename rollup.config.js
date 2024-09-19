@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { terser } from '@rollup/plugin-terser'; // Updated import
+import terser from '@rollup/plugin-terser'; // Import the Terser plugin correctly
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 
@@ -38,7 +38,7 @@ const createConfig = (component) => ([
     plugins: [
       resolve(),
       commonjs(),
-      terser()
+      terser() // Call Terser as a function
     ]
   }
 ]);
