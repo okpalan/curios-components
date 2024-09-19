@@ -4,6 +4,7 @@
   "description": "A collection of draft components for Gufn using Rollup.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
+  "type": "module",  
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c -w",

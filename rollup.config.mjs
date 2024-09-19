@@ -4,6 +4,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import { terser } from '@rollup/plugin-terser';
 import copy from 'rollup-plugin-copy'; 
+
 const inputDir = 'src/';
 const outputDir = 'dist';
 const umdDir = path.join(outputDir, 'umd/draft-components');
