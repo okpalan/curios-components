@@ -2,9 +2,39 @@
   "name": "draft-components",
   "version": "1.0.0",
   "description": "A collection of draft components for Gufn using Rollup.",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "type": "module",  
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./package.json": "./package.json",
+    "./dist/*": "./dist/*",
+    "./fixtures/*": "./fixtures/*",
+    "./src/*": "./src/*"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gufn/draft-components.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gufn/draft-components/issues"
+  },
+  "homepage": "https://github.com/gufn/draft-components#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "npx eslint --fix"
+    ]
+  },
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c -w",
@@ -12,7 +42,8 @@
     "serve": "http-server ./fixtures -p 3000 -c-1",
     "prepublishOnly": "bash manage-dependencies.sh || manage-dependencies.bat",
     "pretest": "bash manage-dependencies.sh || manage-dependencies.bat",
-    "prepublish": "bash manage-dependencies.sh || manage-dependencies.bat"
+    "prepublish": "bash manage-dependencies.sh || manage-dependencies.bat",
+    "husky-install": "husky install"
   },
   "keywords": [
     "gufn",
@@ -36,6 +67,7 @@
     "rollup": "^4.22.0",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-postcss": "^4.0.2",
-    "sass": "^1.79.1"
+    "sass": "^1.79.1",
+    "husky": "^8.0.0"
   }
 }
