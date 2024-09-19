@@ -40,7 +40,7 @@ const createConfig = (component) => ([
       resolve(),
       commonjs(),
       terser(),
-      umd() // Include UMD plugin
+      umd() // Include UMD plugincle
     ]
   }
 ]);
