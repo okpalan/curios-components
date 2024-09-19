@@ -21,12 +21,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/gufn/draft-components.git"
+    "url": "https://gitlab.com/gufn/draft-components.git"
   },
   "bugs": {
-    "url": "https://github.com/gufn/draft-components/issues"
+    "url": "https://gitlab.com/gufn/draft-components/issues"
   },
-  "homepage": "https://github.com/gufn/draft-components#readme",
+  "homepage": "https://gitlab.com/gufn/draft-components#readme",
   "husky": {
     "hooks": {
       "pre-commit": "npx lint-staged"
@@ -40,11 +40,11 @@
 "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c -w",
-    "test": "web-test-runner --config test-runner.config.js",
+    "test": "web-test-runner --config test-runner.config.mjs",
     "serve": "http-server ./fixtures -p 3000 -c-1",
     "prepublishOnly": "npm run manage:dependencies",
     "pretest": "npm run manage:dependencies",
-    "husky-install": "husky install",
+    "husky-install": "husky install"
     "manage:dependencies": "node scripts/manage-dependencies.js"
 },
   "keywords": [
