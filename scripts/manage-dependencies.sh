@@ -1,38 +1,36 @@
 #!/bin/bash
 
-# Directory variables
-ASSETS_DIR="src/assets"
-DIST_DIR="dist/assets"
-TIMEOUT=30 # Timeout in seconds
+set -e  # Exit immediately if a command exits with a non-zero status
 
-# Function to copy assets
-copy_assets() {
-    if [ -d "$ASSETS_DIR" ]; then
-        echo "Copying assets from $ASSETS_DIR to $DIST_DIR"
-        cp -R "$ASSETS_DIR/" "$DIST_DIR/"
-        echo "Assets copied successfully."
-    else
-        echo "No assets directory found. Skipping asset copy."
-    fi
-}
+echo "Starting asset management..."
 
-# Check for assets and handle timeout
-start_time=$(date +%s)
+# Define source and destination directories
+SOURCE_DIR="src/assets"
+DEST_DIR="dist/assets"
 
-while true; do
-    if [ -d "$ASSETS_DIR" ]; then
-        copy_assets
-        break
-    fi
+# Check if the source directory exists
+if [ ! -d "$SOURCE_DIR" ]; then
+    echo "ERROR: Source assets directory does not exist. Exiting."
+    exit 1
+fi
 
-    current_time=$(date +%s)
-    elapsed_time=$((current_time - start_time))
+# Create the destination directory if it does not exist
+if [ ! -d "$DEST_DIR" ]; then
+    echo "Creating destination assets directory..."
+    mkdir -p "$DEST_DIR"
+fi
 
-    if [ "$elapsed_time" -ge "$TIMEOUT" ]; then
-        echo "Timeout reached while waiting for assets directory. Exiting."
-        break
-    fi
+echo "Copying assets from $SOURCE_DIR to $DEST_DIR..."
+cp -R "$SOURCE_DIR/"* "$DEST_DIR/"
+if [ $? -ne 0 ]; then
+    echo "ERROR: Failed to copy assets. Exiting."
+    exit 1
+fi
 
-    echo "Waiting for assets directory..."
-    sleep 1 # Wait before checking again
-done
+echo "Assets copied successfully."
+
+# Optional: Print the copied files
+echo "Copied files:"
+ls "$DEST_DIR"
+
+exit 0

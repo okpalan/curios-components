@@ -1,38 +1,35 @@
 @echo off
 setlocal
 
-set ASSETS_DIR=src\assets
-set DIST_DIR=dist\assets
-set TIMEOUT=8
+echo Starting asset management...
 
-:: Start timer
-set start_time=%time%
+rem Define source and destination directories
+set "SOURCE_DIR=src\assets"
+set "DEST_DIR=dist\assets"
 
-:wait_for_assets
-if exist "%ASSETS_DIR%" (
-    echo Copying assets from %ASSETS_DIR% to %DIST_DIR%
-    xcopy "%ASSETS_DIR%\*" "%DIST_DIR%\" /E /I /Y
-    echo Assets copied successfully.
-    exit /b 0
-)
-
-:: Check timeout
-set current_time=%time%
-call :time_difference "%start_time%" "%current_time%" elapsed_time
-if %elapsed_time% geq %TIMEOUT% (
-    echo Timeout reached while waiting for assets directory. Exiting.
+rem Check if the source directory exists
+if not exist "%SOURCE_DIR%" (
+    echo ERROR: Source assets directory does not exist. Exiting.
     exit /b 1
 )
 
-echo Waiting for assets directory...
-timeout /t 1 > nul
-goto wait_for_assets
+rem Create the destination directory if it does not exist
+if not exist "%DEST_DIR%" (
+    echo Creating destination assets directory...
+    mkdir "%DEST_DIR%"
+)
 
-:time_difference
-:: Calculate time difference in seconds
-setlocal
-set start=%1
-set end=%2
-:: Add your own logic to calculate elapsed time based on your requirements
-endlocal & set %3=%elapsed_time%
-exit /b
+echo Copying assets from %SOURCE_DIR% to %DEST_DIR%...
+xcopy "%SOURCE_DIR%\*" "%DEST_DIR%\" /E /I /Y
+if errorlevel 1 (
+    echo ERROR: Failed to copy assets. Exiting.
+    exit /b 1
+)
+
+echo Assets copied successfully.
+
+rem Optional: Print the copied files
+echo Copied files:
+dir "%DEST_DIR%"
+
+exit /b 0
