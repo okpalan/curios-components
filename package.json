@@ -8,7 +8,7 @@
     "build": "rollup -c",
     "watch": "rollup -c -w",
     "test": "web-test-runner --config test-runner.config.js",
-    "serve": "http-server ./dist",
+    "serve": "http-server ./fixtures -p 3000 -c-1",
     "prepublishOnly": "pnpm build",
     "pretest": "pnpm build",
     "prepublish": "pnpm build"
