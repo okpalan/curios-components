@@ -3,6 +3,7 @@ import path from 'path';
 import terser from '@rollup/plugin-terser'; 
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import postcss from 'rollup-plugin-postcss';
 
 const inputDir = 'src/';
 const outputDir = 'dist';
@@ -42,6 +43,16 @@ const createConfig = (component) => ([
       }
     ],
     plugins: [
+      postcss({
+        extract: true, // Extract CSS to a separate file
+        minimize: true, // Minify CSS
+        use: [
+          ['sass', {
+            includePaths: ['src/styles'] 
+          }
+        ]
+    ]
+  }),
       resolve(),
       commonjs(),
       terser() // Call Terser as a function
