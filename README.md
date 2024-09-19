@@ -1,7 +1,3 @@
-Here’s a draft for your `README.md` file that fits the structure of your project based on the files and directories you’ve listed:
-
----
-
 # Draft Components
 
 A component library built with Rollup for bundling JavaScript modules. This project includes testing configurations and various utilities to ensure efficient component development.
