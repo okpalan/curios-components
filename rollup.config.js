@@ -25,17 +25,17 @@ const createConfig = (component) => {
       input: path.join(inputDir, component),
       output: [
         {
-          file: path.join(cjsDir, `${baseName}.cjs.js`),
+          file: path.join(cjsDir, `draft-components.cjs.js`),
           format: 'cjs',
           sourcemap: true
         },
         {
-          file: path.join(esmDir, `${baseName}.esm.js`),
+          file: path.join(esmDir, `draft-components.esm.js`),
           format: 'esm',
           sourcemap: true
         },
         {
-          file: path.join(umdDir, `${baseName}.umd.js`),
+          file: path.join(umdDir, `draft-components.umd.js`),
           format: 'umd',
           name: 'DraftComponents', // Adjust the name as necessary
           sourcemap: true
