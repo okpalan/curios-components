@@ -1,9 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import { terser } from 'rollup-plugin-terser';
+import { terser } from '@rollup/plugin-terser'; // Updated import
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import umd from 'rollup-plugin-umd';
 
 const inputDir = 'src/';
 const outputDir = 'dist';
@@ -39,8 +38,7 @@ const createConfig = (component) => ([
     plugins: [
       resolve(),
       commonjs(),
-      terser(),
-      umd() // Include UMD plugincle
+      terser()
     ]
   }
 ]);
