@@ -14,7 +14,7 @@ const components = fs.readdirSync(inputDir).filter(file => file.endsWith('.js') 
 console.log('Components:', components); // Debugging line
 
 // Create a Rollup config for each component
-const createConfig = (component) => ([
+const createConfig = (component) => ([ 
   {
     input: path.join(inputDir, component),
     output: [
@@ -26,6 +26,12 @@ const createConfig = (component) => ([
       {
         file: path.join(outputDir, component.replace('.js', '.esm.js')),
         format: 'esm',
+        sourcemap: true
+      },
+      {
+        file: path.join(outputDir, component.replace('.js', '.amd.js')),
+        format: 'amd',
+        name: 'DraftComponents', // Adjust the name as necessary
         sourcemap: true
       },
       {
