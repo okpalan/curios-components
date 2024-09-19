@@ -1,10 +1,19 @@
 import { html, fixture } from '@open-wc/testing';
 import { JSDOM } from 'jsdom';
+import chai from 'chai';
 
 // Create a jsdom environment
 const { window } = new JSDOM();
-global.window = window;
-global.document = window.document;
+globalThis.window = window;
+globalThis.document = window.document;
+
+// Set up Chai
+chai.config.truncateThreshold = 0;
+globalThis.expect = chai.expect;
+
+// Set up test helpers
+globalThis.html = html;
+globalThis.fixture = fixture;
 
 export default {
   browsers: ['chrome'],
@@ -14,11 +23,10 @@ export default {
     {
       name: 'test-setup',
       setup() {
+        // Ensure Chai and test helpers are available globally
         globalThis.html = html;
         globalThis.fixture = fixture;
-        // Ensure Chai is aware of the window object
-        const chai = require('chai');
-        chai.config.truncateThreshold = 0;
+        globalThis.expect = chai.expect;
       },
     },
   ],
