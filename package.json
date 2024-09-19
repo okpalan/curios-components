@@ -37,16 +37,16 @@
       "npx eslint --fix"
     ]
   },
-"scripts": {
+  "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c -w",
     "test": "web-test-runner --config test-runner.config.mjs",
     "serve": "http-server ./fixtures -p 3000 -c-1",
     "prepublishOnly": "npm run manage:dependencies",
     "pretest": "npm run manage:dependencies",
-    "husky-install": "husky install"
+    "husky-install": "husky install",
     "manage:dependencies": "node scripts/manage-dependencies.js"
-},
+  },
   "keywords": [
     "gufn",
     "components",
