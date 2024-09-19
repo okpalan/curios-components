@@ -19,16 +19,6 @@ export default {
   browsers: ['chrome'],
   files: './tests/**/*.test.js',
   nodeResolve: true,
-  plugins: [
-    {
-      name: 'test-setup',
-      setup() {
-        // Ensure Chai and test helpers are available globally
-        globalThis.html = html;
-        globalThis.fixture = fixture;
-        globalThis.expect = chai.expect;
-      },
-    },
-  ],
-  testIsolation: false,
+  setupFiles: ['./utils/setupTests.js'],  // Path to the setup file
+  testIsolation: false,  // Adjust based on your needs
 };
