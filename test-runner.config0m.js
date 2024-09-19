@@ -1,3 +1,5 @@
+// test-runner.config.mjs
+
 import { createRunner } from '@web/test-runner';
 import { html, fixture } from '@open-wc/testing';
 
@@ -20,8 +22,7 @@ export default {
         globalThis.html = html;
         globalThis.fixture = fixture;
       },
-    }
-],
-  testIsolation: false, 
-  
+    },
+  ],
+  testIsolation: false,
 };
