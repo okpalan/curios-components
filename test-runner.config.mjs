@@ -1,6 +1,6 @@
 import { html, fixture } from '@open-wc/testing';
 import { JSDOM } from 'jsdom';
-import chai from 'chai';
+import * as chai from 'chai'; 
 
 // Create a jsdom environment
 const { window } = new JSDOM();
