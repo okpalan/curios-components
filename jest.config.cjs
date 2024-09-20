@@ -1,7 +1,7 @@
 module.exports = {
   testEnvironment: 'jsdom',
   testEnvironmentOptions: {
-    url: 'http://localhost', 
+    url: 'http://localhost',
   },
   extensionsToTreatAsEsm: [".ts", ".tsx", ".jsx"],
   moduleDirectories: ['src', 'utils', 'node_modules'],
@@ -15,23 +15,21 @@ module.exports = {
   transform: {
     '^.+\\.jsx?$': ['babel-jest', { configFile: './babel.config.test.cjs' }],
     '^.+\\.ts$': 'ts-jest',
-
   },
   moduleNameMapper: {
-    '\\.(css|less)$': 'identity-obj-proxy',
+    '\\.(css|less|scss)$': 'identity-obj-proxy',
     '\\.(gif|jpg|jpeg|png)$': 'jest-transform-stub',
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
     '^@/(.*)$': '<rootDir>/src/$1',
-    '\\.(css|scss)$': 'identity-obj-proxy', 
-    '\\.html$': '<template></template>', // Mock for HTML
-
-
-
+    '\\.html$': '<template></template>', // Mock for HTML files
   },
-
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/dist/',
+    '/coverage/',
+  ],
   transformIgnorePatterns: [
     '/node_modules/(?!@open-wc/testing)',
-    '^.+\\.module\\.(css|sass|scss)$',
   ],
   globals: {
     'ts-jest': {
