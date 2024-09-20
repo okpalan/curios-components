@@ -1,24 +1,29 @@
+import { fileURLToPath, URL } from 'url';
+import * as chai from 'chai';
 import { html, fixture } from '@open-wc/testing';
-import { JSDOM } from 'jsdom';
-import * as chai from 'chai'; 
 
-// Create a jsdom environment
-const { window } = new JSDOM();
-globalThis.window = window;
-globalThis.document = window.document;
-
-// Set up Chai
-chai.config.truncateThreshold = 0;
-globalThis.expect = chai.expect;
-
-// Set up test helpers
-globalThis.html = html;
-globalThis.fixture = fixture;
+// Convert setupTests.js file path to absolute path
+const setupTestsFilePath = fileURLToPath(new URL('./utils/setupTests.js', import.meta.url));
 
 export default {
   browsers: ['chrome'],
   files: './tests/**/*.test.js',
   nodeResolve: true,
-  setupFiles: ['./utils/setupTests.js'],  // Path to the setup file
-  testIsolation: false,  // Adjust based on your needs
+  setupFiles: [setupTestsFilePath],  
+  plugins: [
+    {
+      name: 'test-setup',
+      setup() {
+        globalThis.html = html;
+        globalThis.fixture = fixture;
+        globalThis.expect = chai.expect;
+      },
+    },
+  ],
+  testMatch: [
+    '**/*.test.js',
+  ],
+  testRunner: 'jest-circus/runner',
+  testTimeout: 50000,
+  testIsolation: false,
 };
