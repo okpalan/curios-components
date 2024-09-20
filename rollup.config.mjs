@@ -77,3 +77,4 @@ const createConfig = (component) => ({
 
 // Export an array of configurations for all components
 export default components.map(createConfig);
+
