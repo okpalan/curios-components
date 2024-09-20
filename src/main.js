@@ -1,10 +1,14 @@
-export * from './noisy-notification/noisy-notification.js'
-// src/main.js
-import { setupJest } from './utils/setupJest.js';
-import { setupTests } from './utils/setupTests.js';
 
+// Import the setup functions
+const { setupJest } = require('./utils/setupJest.cjs');
+const { setupTests } = require('./utils/setupTests.cjs');
+
+// Call the setup functions
 setupJest();
 setupTests();
 
-// Your main code logic
-console.log("Draft project initialized with ESM!");
+// Re-export from noisy-notification
+module.exports = {
+    ...require('./noisy-notification/noisy-notification.js'),
+};
+

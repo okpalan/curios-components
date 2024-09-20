@@ -1,5 +1,5 @@
 /* eslint-disable-next-line import/no-unused-modules */
-import NoisyNotification from '../../src/main.jd';
+import NoisyNotification from '../../src/main.js';
 
 describe('NoisyNotification', () => {
     let element;
