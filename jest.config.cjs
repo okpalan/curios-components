@@ -1,14 +1,14 @@
 module.exports = {
   testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['./utils/setupTests.cjs'],
   extensionsToTreatAsEsm: ['.ts', '.tsx'], 
 
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
   transform: {
-    '^.+\\.[jt]sx?$': 'babel-jest',  // Removed redundant "transform" key
+    '^.+\\.jsx?$': ['babel-jest', { configFile: './babel.config.test.js' }],
   },
+  setupFilesAfterEnv: ['./utils/setupTests.cjs'],
   transformIgnorePatterns: [
-    '/node_modules/',  // This is fine if you want to ignore all node modules
+    '/node_modules/',  
     '^.+\\.module\\.(css|sass|scss)$',
   ],
 };

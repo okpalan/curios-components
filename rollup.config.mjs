@@ -43,8 +43,12 @@ const createConfig = (component) => [
       resolve(),
       commonjs(),
       babel({
-        babelHelpers: "bundled",
-        extensions: [".js"],
+        babelHelpers: 'runtime',
+        exclude: 'node_modules/**',
+        presets: [
+          "@babel/preset-env",
+          "@babel/preset-typescript"
+        ],
       }),
       copy({
         targets: [{ src: "src/assets/*", dest: "dist/assets" }],
