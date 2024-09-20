@@ -1,15 +1,14 @@
-import '@testing-library/jest-dom';
+// utils/setupTests.js
+
+const { html, fixture } = require('@open-wc/testing');
+const { JSDOM } = require('jsdom');
+const { TextEncoder, TextDecoder } = require('util');
 
 // Polyfill TextEncoder and TextDecoder
-import { TextEncoder, TextDecoder } from 'util';
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
 
-// Import `@open-wc/testing`
-import { html, fixture } from '@open-wc/testing';
-
 // Create a jsdom environment
-import { JSDOM } from 'jsdom';
 const { window } = new JSDOM();
 globalThis.window = window;
 globalThis.document = window.document;
