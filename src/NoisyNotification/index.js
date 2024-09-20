@@ -1,5 +1,4 @@
-export * from './NoisyNotification.html'; // Ensure this file is a valid module
-import NoisyNotification from './NoisyNotification'; // Import the component
+import NoisyNotification from './NoisyNotification'; 
 
 // Re-export the component
 export { NoisyNotification };
