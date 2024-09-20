@@ -1,30 +1,34 @@
 import fs from 'fs';
 import path from 'path';
+import glob from 'glob';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import terser from '@rollup/plugin-terser';
-import copy from 'rollup-plugin-copy';
 import babel from '@rollup/plugin-babel';
+import copy from 'rollup-plugin-copy';
 import postcss from 'rollup-plugin-postcss';
-// import { visualizer } from 'rollup-plugin-visualizer';
-import {glob} from 'glob';  
+import { terser } from 'rollup-plugin-terser';
 
+// Define input and output directories
 const inputDir = path.resolve(process.cwd(), 'src');
 const outputDir = path.resolve(process.cwd(), 'dist');
 const umdDir = path.join(outputDir, 'umd/draft-components');
 
-// Define the regex pattern for matching PascalCase components
-const componentPattern = '**/*[A-Z]*/*.js'; // Matches any directory with PascalCase names
+/**
+ * Function to find all PascalCase component files in the input directory.
+ * @returns {string[]} Array of component file paths.
+ * @throws Will throw an error if no components are found.
+ */
+const findComponents = () => {
+  const componentPattern = '**/[A-Z]*/*.js'; // Matches any directory with PascalCase names
+  const allComponents = glob.sync(componentPattern, { cwd: inputDir });
+  const components = allComponents.filter(file => /^[A-Z][a-zA-Z0-9]*\/.*\.js$/.test(file));
 
-// Use glob to find all .js files in the src directory that match the pattern
-const allComponents = glob.sync(componentPattern, { cwd: inputDir });
+  if (components.length === 0) {
+    throw new Error(`No components found in src directory (${inputDir}). Ensure it contains .js files.`);
+  }
 
-// Filter for directories that match the PascalCase naming convention
-const components = allComponents.filter(file => /^[A-Z][a-zA-Z0-9]*\/.*\.js$/.test(file));
-
-if (components.length === 0) {
-  throw new Error(`No components found in src directory (${inputDir}). Ensure it contains .js files.`);
-}
+  return components;
+};
 
 // Create a Rollup configuration for each component
 const createConfig = (component) => ({
@@ -66,10 +70,6 @@ const createConfig = (component) => ({
       minimize: true,
     }),
     terser(),
-    // visualizer({
-    //   open: true,
-    //   filename: 'bundle-stats.html',
-    // }),
   ],
   external: [],
   onwarn: (warning) => {
@@ -81,7 +81,8 @@ const createConfig = (component) => ({
   preserveEntrySignatures: 'strict',
 });
 
-// Store the configurations in a variable
+// Find components and create Rollup configurations
+const components = findComponents();
 const configs = components.map(createConfig);
 
 // Log the configs for debugging
