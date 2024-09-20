@@ -39,8 +39,8 @@ const createConfig = (component) => ({
     },
   ],
   plugins: [
-    resolve(), // Resolves modules from node_modules
-    commonjs(), // Converts CommonJS modules to ES6
+    resolve(),
+    commonjs(),
     babel({
       babelHelpers: 'runtime',
       exclude: 'node_modules/**',
@@ -56,15 +56,14 @@ const createConfig = (component) => ({
       extract: true,
       minimize: true,
     }),
-    terser(), // Minifies the output
+    terser(),
     visualizer({
       open: true,
       filename: 'bundle-stats.html',
     }),
   ],
-  external: [], // Add external dependencies here if needed
+  external: [],
   onwarn: (warning) => {
-    // Suppress circular dependency warnings
     if (warning.code === 'CIRCULAR_DEPENDENCY') {
       return;
     }
@@ -76,4 +75,4 @@ const createConfig = (component) => ({
 });
 
 // Export an array of configurations for all components
-export default Array.from(components.flatMap(createConfig)); // Create an array of configurations
+export default components.map(createConfig);
