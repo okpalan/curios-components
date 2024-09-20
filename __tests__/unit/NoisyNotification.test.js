@@ -1,8 +1,8 @@
 import { NoisyNotification } from '@/NoisyNotification';
+
 describe('NoisyNotification', () => {
     let element;
 
-    // Mock the fetch for template loading
     beforeEach(() => {
         jest.spyOn(window, 'fetch').mockResolvedValue({
             text: jest.fn().mockResolvedValue('<div class="noise"></div>'),
@@ -39,6 +39,7 @@ describe('NoisyNotification', () => {
     it('should dismiss the notification on timer completion', async () => {
         jest.useFakeTimers();
         await element.connectedCallback();
+        jest.spyOn(element, 'dispatchEvent');
         element.setAttribute('duration', '1000'); // Set short duration for testing
         element.startTimer();
         jest.advanceTimersByTime(1000);
