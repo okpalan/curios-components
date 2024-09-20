@@ -15,6 +15,15 @@ async function setupTests() {
 
   globalThis.html = html;
   globalThis.fixture = fixture;
+
+  // Mock the getContext method for HTMLCanvasElement
+  HTMLCanvasElement.prototype.getContext = () => {
+      return {
+          // Mock methods as needed
+          fillRect: jest.fn(),
+          // Add other methods here as necessary
+      };
+  };
 }
 
 // Export the function
