@@ -20,8 +20,9 @@ const umdDir = path.join(outputDir, 'umd/draft-components');
  */
 const findComponents = () => {
   const componentPattern = '**/[A-Z]*/*.js'; // Matches any directory with PascalCase names
-  const allComponents = glob.sync(componentPattern, { cwd: inputDir });
-  const components = allComponents.filter(file => /^[A-Z][a-zA-Z0-9]*\/.*\.js$/.test(file));
+  const allComponents = glob.sync(componentPattern, { cwd: inputDir, nodir: true, absolute: true });
+
+  const components = allComponents.filter(file => /^[A-Z][a-zA-Z0-9]*\/.*\.js$/.test(path.relative(inputDir, file)));
 
   if (components.length === 0) {
     throw new Error(`No components found in src directory (${inputDir}). Ensure it contains .js files.`);
@@ -32,20 +33,20 @@ const findComponents = () => {
 
 // Create a Rollup configuration for each component
 const createConfig = (component) => ({
-  input: path.join(inputDir, component),
+  input: component, // Use the absolute path directly
   output: [
     {
-      file: path.join(outputDir, component.replace('.js', '.cjs.js')),
+      file: path.join(outputDir, path.basename(component).replace('.js', '.cjs.js')),
       format: 'cjs',
       sourcemap: true,
     },
     {
-      file: path.join(outputDir, component.replace('.js', '.esm.js')),
+      file: path.join(outputDir, path.basename(component).replace('.js', '.esm.js')),
       format: 'esm',
       sourcemap: true,
     },
     {
-      file: path.join(umdDir, component.replace('.js', '.umd.js')),
+      file: path.join(umdDir, path.basename(component).replace('.js', '.umd.js')),
       format: 'umd',
       name: 'DraftComponents',
       sourcemap: true,
@@ -78,7 +79,6 @@ const createConfig = (component) => ({
     }
     console.warn(`(!) ${warning.message}`);
   },
-  preserveEntrySignatures: 'strict',
 });
 
 // Find components and create Rollup configurations
