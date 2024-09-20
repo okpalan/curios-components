@@ -5,10 +5,13 @@ module.exports = {
 
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
   transform: {
-    '^.+\\.[jt]sx?$': 'babel-jest',
-  },
+    transform: {
+      '^.+\\.[jt]sx?$': 'babel-jest',
+    },
+      },
   transformIgnorePatterns: [
-    'node_modules/(?!(@open-wc)/)',
-
+    '/node_modules/',
+    '^.+\\.module\\.(css|sass|scss)$',
+    
    ],
 };
