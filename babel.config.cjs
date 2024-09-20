@@ -6,7 +6,12 @@ module.exports = {
     presets: [
       '@babel/preset-env',
       '@babel/preset-typescript',
-      
+        ['@babel/preset-env', {
+          targets: {
+            node: 'current', // or the version of Node you're using
+          },
+        }],
+    
     ],
     setupFilesAfterEnv: ['./utils/setupTests.js'],
     testMatch: ['**/?(*.)+(spec|test).js?(x)'],
