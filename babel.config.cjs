@@ -2,7 +2,7 @@ const babel = require('@rollup/plugin-babel');
 
 module.exports = {
   presets: [
-    ["@babel/preset-env", { modules: "auto" }], // Use "false" for ESM
+    ["@babel/preset-env", { modules: "false" }], // Use "false" if you want to keep ESM
     "@babel/preset-typescript"
   ],
   plugins: [
