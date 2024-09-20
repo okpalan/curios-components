@@ -1,6 +1,4 @@
-For the design and development of components for **generic.org**, we can adopt a clear component system that tackles both UI/UX needs and generic components. To maintain consistency, I suggest prefixing all UI/UX components with `noisy-` to make them easily identifiable. For generic components (such as layout, utilities, or non-interactive components), we can use a prefix like `generic-`.
 
-Here’s a breakdown of component suggestions, including both UI/UX (with `noisy-` prefix) and non-UI components (with `generic-` prefix):
 
 ### UI/UX Components (`noisy-` prefix)
 These are interactive or user-facing components that focus on user experience and design.
