@@ -5,8 +5,8 @@ import commonjs from "@rollup/plugin-commonjs";
 import terser from "@rollup/plugin-terser";
 import copy from "rollup-plugin-copy";
 import babel from "@rollup/plugin-babel";
-import postcss from "rollup-plugin-postcss"; // Corrected import for postcss
-import {visualizer} from "rollup-plugin-visualizer"; // Optional: Visualize bundle size
+import postcss from "rollup-plugin-postcss";
+import { visualizer } from "rollup-plugin-visualizer";
 
 const inputDir = "src/";
 const outputDir = "dist";
@@ -47,18 +47,18 @@ const createConfig = (component) => [
         exclude: 'node_modules/**',
         presets: [
           "@babel/preset-env",
-          "@babel/preset-typescript"
+          "@babel/preset-typescript",
         ],
       }),
       copy({
         targets: [{ src: "src/assets/*", dest: "dist/assets" }],
-        verbose: true, // Optional: Log each copy operation
-        hook: "writeBundle", // Copy after bundle is created
+        verbose: true,
+        hook: "writeBundle",
       }),
       postcss({
         extensions: [".scss", ".css"],
-        extract: true, // Extracts CSS into separate files
-        minimize: true, // Minifies the output CSS
+        extract: path.join(outputDir, 'styles.css'), // Extracts all styles into a single file
+        minimize: true,
         use: [
           [
             "sass",
@@ -69,9 +69,9 @@ const createConfig = (component) => [
         ],
       }),
       terser(),
-      visualizer({ 
-        open: true, // Automatically open the visualizer
-        filename: 'bundle-stats.html' // Output file for stats
+      visualizer({
+        open: true,
+        filename: 'bundle-stats.html',
       }),
     ],
   },
