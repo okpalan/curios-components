@@ -59,6 +59,25 @@ const createConfig = (component) => ({
       open: true,
       filename: 'bundle-stats.html',
     }),
+  ],
+  external: [],
+  onwarn: (warning) => {
+    
+    if (warning.code === 'CIRCULAR_DEPENDENCY') {
+      return;
+    }
+
+    console.warn(`(!) ${warning.message}`);
+
+  },
+
+  preserveEntrySignatures: 'strict',
+
+  preserveModules: true,
+
+  preserveModulesRoot: inputDir,
+    
 });
+
 
 export default components.map(createConfig);
