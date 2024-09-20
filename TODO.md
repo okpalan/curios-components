@@ -1,6 +1,8 @@
 ## Hey Auto-Dev,
 
 - Please press CTRL+SHIFT+V on keyboard:
+- Click ![HERE](./docs/SHORTCUTS.md) for all the SHORTCUTS.
+
 
 Thanks for jumping in to help with the project! Since you're new, I’ve written out some detailed steps to guide you through the tasks ahead. Let’s tackle them one by one, starting from the easier ones, then moving on to the more complex tasks.
 
@@ -53,7 +55,7 @@ Testing is essential to make sure the components and changes we’ve made are so
 
 By following these steps, you’ll move from smaller, more manageable tasks to bigger challenges. If you run into any issues, don’t hesitate to ask for help! We’re in this together, and I’m always here to guide you through any roadblocks. Once you’re comfortable, you’ll be flying through tasks like a pro!
 
-Looking forward to seeing the awesome work you’ll do!
 
+Looking forward to seeing the awesome work you’ll do!
 Cheers,  
 Nnamdi Michael Okpala
