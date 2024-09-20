@@ -1,20 +1,21 @@
 import fs from 'fs';
 import path from 'path';
-import {glob }from 'glob';
+import {glob} from 'glob';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
 import copy from 'rollup-plugin-copy';
 import postcss from 'rollup-plugin-postcss';
-import terser from '@rollup/plugin-terser';
-import sass from 'sass';
+import  terser  from '@rollup/plugin-terser';
 import alias from '@rollup/plugin-alias';
 
-
-// Define input and output directories
+// Define input and output directories based on your structure
 const inputDir = path.resolve(process.cwd(), 'src');
 const outputDir = path.resolve(process.cwd(), 'dist');
 const umdDir = path.join(outputDir, 'umd/draft-components');
+
+// Define the pattern to find PascalCase components
+const componentPattern = '**/[A-Z]*/**/*.js';
 
 /**
  * Function to find all PascalCase component files in the input directory.
@@ -22,10 +23,11 @@ const umdDir = path.join(outputDir, 'umd/draft-components');
  * @throws Will throw an error if no components are found.
  */
 const findComponents = () => {
-  const componentPattern = '**/[A-Z]*/**/*.js';
   const allComponents = glob.sync(componentPattern, { cwd: inputDir, nodir: true, absolute: true });
 
-  const components = allComponents.filter(file => /^[A-Z][a-zA-Z0-9]*\/.*\.js$/.test(path.relative(inputDir, file)));
+  const components = allComponents.filter(file =>
+    /^[A-Z][a-zA-Z0-9]*\/.*\.js$/.test(path.relative(inputDir, file))
+  );
 
   if (components.length === 0) {
     throw new Error(`No components found in src directory (${inputDir}). Ensure it contains .js files.`);
@@ -35,63 +37,63 @@ const findComponents = () => {
 };
 
 // Create a Rollup configuration for each component
-const createConfig = (component) => ({
-  input: component,
-  output: [
-    {
-      file: path.join(outputDir, path.basename(component).replace('.js', '.cjs.js')),
-      format: 'cjs',
-      sourcemap: true,
+const createConfig = (component) => {
+  const componentName = path.basename(path.dirname(component)); // Get the component folder name
+
+  return {
+    input: component,
+    output: [
+      {
+        file: path.join(outputDir, componentName, `${componentName}.cjs.js`),
+        format: 'cjs',
+        sourcemap: true,
+      },
+      {
+        file: path.join(outputDir, componentName, `${componentName}.esm.js`),
+        format: 'esm',
+        sourcemap: true,
+      },
+      {
+        file: path.join(umdDir, `${componentName}.umd.js`),
+        format: 'umd',
+        name: componentName,
+        sourcemap: true,
+      },
+    ],
+    plugins: [
+      resolve(),
+      commonjs(),
+      babel({
+        babelHelpers: 'runtime',
+        exclude: 'node_modules/**',
+        presets: ['@babel/preset-env'],
+      }),
+      alias({
+        entries: [
+          { find: '@', replacement: path.resolve(__dirname, 'src') },
+        ],
+      }),
+      postcss({
+        extensions: ['.scss', '.css'],
+        extract: path.join(outputDir, componentName, `${componentName}.css`), // Extract CSS for each component
+        minimize: true, // Minimize the CSS output
+      }),
+      terser(), // Minify JS output
+      copy({
+        targets: [{ src: 'src/assets/*', dest: path.join(outputDir, 'assets') }],
+        verbose: true,
+        hook: 'writeBundle',
+      }),
+    ],
+    external: [], // Define external dependencies if necessary
+    onwarn: (warning) => {
+      if (warning.code === 'CIRCULAR_DEPENDENCY') {
+        return;
+      }
+      console.warn(`(!) ${warning.message}`);
     },
-    {
-      file: path.join(outputDir, path.basename(component).replace('.js', '.esm.js')),
-      format: 'esm',
-      sourcemap: true,
-    },
-    {
-      file: path.join(umdDir, path.basename(component).replace('.js', '.umd.js')),
-      format: 'umd',
-      name: 'DraftComponents',
-      sourcemap: true,
-    },
-  ],
-  plugins: [
-    resolve(),
-    commonjs(),
-    sass({
-      includePaths: [path.resolve(__dirname, 'src', 'styles')],
-      outputStyle: 'compressed',
-    }),
-    alias({
-      entries: [
-        { find: '@', replacement: path.resolve(__dirname, 'src') }
-      ]
-    }),
-    babel({
-      babelHelpers: 'runtime',
-      exclude: 'node_modules/**',
-      presets: ['@babel/preset-env'],
-    }),
-    copy({
-      targets: [{ src: 'src/assets/*', dest: 'dist/assets' }],
-      verbose: true,
-      hook: 'writeBundle',
-    }),
-    postcss({
-      extensions: ['.scss', '.css'],
-      extract: true, // Extract CSS to a separate file
-      minimize: true, // Minimize the CSS
-    }),
-    terser(),
-  ],
-  external: [],
-  onwarn: (warning) => {
-    if (warning.code === 'CIRCULAR_DEPENDENCY') {
-      return;
-    }
-    console.warn(`(!) ${warning.message}`);
-  },
-});
+  };
+};
 
 // Find components and create Rollup configurations
 const components = findComponents();
