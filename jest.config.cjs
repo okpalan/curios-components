@@ -4,7 +4,7 @@ module.exports = {
 
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
   transform: {
-    '^.+\\.jsx?$': ['babel-jest', { configFile: './babel.config.test.js' }],
+    '^.+\\.jsx?$': ['babel-jest', { configFile: './babel.config.test.cjs' }],
   },
   setupFilesAfterEnv: ['./utils/setupTests.cjs'],
   transformIgnorePatterns: [

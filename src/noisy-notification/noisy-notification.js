@@ -23,12 +23,14 @@ export class NoisyNotification extends HTMLElement {
             this.updateDuration();
         }
     }
-
     connectedCallback() {
         this.generateNoiseTexture();
-        this.startTimer();
-        this.addEventListeners();
+        return this.loadTemplate().then(() => {
+            this.startTimer();
+            this.addEventListeners();
+        });
     }
+    
 
     disconnectedCallback() {
         this.clearTimer();
@@ -51,24 +53,30 @@ export class NoisyNotification extends HTMLElement {
                 this.shadowRoot.appendChild(style);
             });
     }
-
     addEventListeners() {
-        this.shadowRoot.querySelector('.close-button').addEventListener('click', () => this.dismissState());
-        this.shadowRoot.querySelector('.expand-button').addEventListener('click', () => this.toggleExpand());
+        const closeButton = this.shadowRoot.querySelector('.close-button');
+        const expandButton = this.shadowRoot.querySelector('.expand-button');
+    
+        closeButton.addEventListener('click', () => this.dismissState());
+        expandButton.addEventListener('click', () => this.toggleExpand());
         this.addEventListener('mouseover', () => this.pauseTimer());
         this.addEventListener('mouseleave', () => this.resumeTimer());
         this.addEventListener('touchstart', () => this.pauseTimer());
         this.addEventListener('touchend', () => this.resumeTimer());
     }
-
+    
     removeEventListeners() {
-        this.shadowRoot.querySelector('.close-button').removeEventListener('click', () => this.dismissState());
-        this.shadowRoot.querySelector('.expand-button').removeEventListener('click', () => this.toggleExpand());
-        this.removeEventListener('mouseover', () => this.pauseTimer());
-        this.removeEventListener('mouseleave', () => this.resumeTimer());
-        this.removeEventListener('touchstart', () => this.pauseTimer());
-        this.removeEventListener('touchend', () => this.resumeTimer());
+        const closeButton = this.shadowRoot.querySelector('.close-button');
+        const expandButton = this.shadowRoot.querySelector('.expand-button');
+    
+        closeButton.removeEventListener('click', this.dismissState);
+        expandButton.removeEventListener('click', this.toggleExpand);
+        this.removeEventListener('mouseover', this.pauseTimer);
+        this.removeEventListener('mouseleave', this.resumeTimer);
+        this.removeEventListener('touchstart', this.pauseTimer);
+        this.removeEventListener('touchend', this.resumeTimer);
     }
+    
 
     generateNoiseTexture() {
         const canvas = document.createElement('canvas');
