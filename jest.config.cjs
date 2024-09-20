@@ -30,5 +30,5 @@ module.exports = {
     },
   },
   
-  setupFilesAfterEnv: ['./utils/setupTests.cjs', './setupJest.cjs'], 
+  setupFilesAfterEnv: ['./utils/setupTests.cjs', './utils/setupJest.cjs'], 
 };
