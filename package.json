@@ -50,7 +50,6 @@
     "husky-install": "husky install",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
-    
   },
   "keywords": [
     "gufn",

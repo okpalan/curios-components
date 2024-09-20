@@ -12,10 +12,12 @@ const inputDir = 'src/';
 const outputDir = 'dist';
 const umdDir = path.join(outputDir, 'umd/draft-components');
 
+// Read all components from the input directory
 const components = fs
   .readdirSync(inputDir)
   .filter((file) => file.endsWith('.js') || file === 'index.js');
 
+// Create a Rollup configuration for each component
 const createConfig = (component) => ({
   input: path.join(inputDir, component),
   output: [
@@ -37,8 +39,8 @@ const createConfig = (component) => ({
     },
   ],
   plugins: [
-    resolve(),
-    commonjs(),
+    resolve(), // Resolves modules from node_modules
+    commonjs(), // Converts CommonJS modules to ES6
     babel({
       babelHelpers: 'runtime',
       exclude: 'node_modules/**',
@@ -54,30 +56,24 @@ const createConfig = (component) => ({
       extract: true,
       minimize: true,
     }),
-    terser(),
-    visualizer({ 
+    terser(), // Minifies the output
+    visualizer({
       open: true,
       filename: 'bundle-stats.html',
     }),
   ],
-  external: [],
+  external: [], // Add external dependencies here if needed
   onwarn: (warning) => {
-    
+    // Suppress circular dependency warnings
     if (warning.code === 'CIRCULAR_DEPENDENCY') {
       return;
     }
-
     console.warn(`(!) ${warning.message}`);
-
   },
-
   preserveEntrySignatures: 'strict',
-
   preserveModules: true,
-
   preserveModulesRoot: inputDir,
-    
 });
 
-
+// Export an array of configurations for all components
 export default components.map(createConfig);
