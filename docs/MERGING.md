@@ -12,7 +12,7 @@ To merge the changes from the `features/fix-rollup-config` branch into the `main
 
 3. **Merge the feature branch into the main branch**:
    ```bash
-   git merge features/fix-rollup-config
+   git merge features/features-name
    ```
 
 4. **Resolve any merge conflicts** (if there are any). If conflicts arise, Git will indicate which files are in conflict. Open those files, resolve the conflicts, and then stage the changes:
