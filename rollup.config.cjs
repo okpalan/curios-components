@@ -1,13 +1,13 @@
-import fs from 'fs';
-import path from 'path';
-import {glob} from 'glob';
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import babel from '@rollup/plugin-babel';
-import copy from 'rollup-plugin-copy';
-import postcss from 'rollup-plugin-postcss';
-import  terser  from '@rollup/plugin-terser';
-import alias from '@rollup/plugin-alias';
+const fs = require('fs');
+const path = require('path');
+const glob = require('glob');
+const resolve = require('@rollup/plugin-node-resolve');
+const commonjs = require('@rollup/plugin-commonjs');
+const babel = require('@rollup/plugin-babel').default;
+const copy = require('rollup-plugin-copy');
+const postcss = require('rollup-plugin-postcss');
+const terser = require('@rollup/plugin-terser');
+const alias = require('@rollup/plugin-alias');
 
 // Define input and output directories based on your structure
 const inputDir = path.resolve(process.cwd(), 'src');
@@ -15,22 +15,26 @@ const outputDir = path.resolve(process.cwd(), 'dist');
 const umdDir = path.join(outputDir, 'umd/draft-components');
 
 // Define the pattern to find PascalCase components
-const componentPattern = '**/[A-Z]*.js';
+const componentPattern = '**/[A-Z]*/**/*.js';
+
 /**
  * Function to find all PascalCase component files in the input directory.
  * @returns {string[]} Array of component file paths.
  * @throws Will throw an error if no components are found.
  */
 const findComponents = () => {
+  // Use glob to find all 'index.js' files in the input directory
   const allComponents = glob.sync('**/index.js', { cwd: inputDir, nodir: true, absolute: true });
 
+  // Filter the found files to ensure they are within PascalCase directories
   const components = allComponents.filter(file => {
-    const componentName = path.basename(path.dirname(file)); // Extract component name from directory
-    return /^[A-Z][a-zA-Z0-9]*$/.test(componentName); // Ensure PascalCase
+    const componentName = path.basename(path.dirname(file)); // Extract component name from the directory name
+    return /^[A-Z][a-zA-Z0-9]*$/.test(componentName); // Ensure the directory follows PascalCase naming
   });
 
+  // Throw an error if no components are found
   if (components.length === 0) {
-    throw new Error(`No components found in src directory (${inputDir}). Ensure it contains 'index.js' files in subdirectories.`);
+    throw new Error(`No components found in src directory (${inputDir}). Ensure it contains 'index.js' files in PascalCase subdirectories.`);
   }
 
   return components;
@@ -103,4 +107,4 @@ const configs = components.map(createConfig);
 console.log(configs);
 
 // Ensure the export is an array of configurations
-export default configs;
+module.exports = configs;

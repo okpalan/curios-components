@@ -42,7 +42,7 @@
     "lint": "npx eslint .",
     "lint:fix": "npx eslint --fix .",
     "clean": "rimraf ./dist",
-    "build": "npx rollup -c ./rollup.config.js ",
+    "build": "npx rollup -c ./rollup.config.cjs ",
     "build:types": "tsc -p tsconfig.json",
     "prepublishOnly": "npm run build && npm run build:types",
     "serve": "http-server ./fixtures -p 3000 -c-1",
