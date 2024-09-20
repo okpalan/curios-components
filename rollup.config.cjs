@@ -9,30 +9,20 @@ const postcss = require('rollup-plugin-postcss');
 const terser = require('@rollup/plugin-terser');
 const alias = require('@rollup/plugin-alias');
 
-// Define input and output directories based on your structure
+// Define input and output directories
 const inputDir = path.resolve(process.cwd(), 'src');
 const outputDir = path.resolve(process.cwd(), 'dist');
 const umdDir = path.join(outputDir, 'umd/draft-components');
 
-// Define the pattern to find PascalCase components
-const componentPattern = '**/[A-Z]*/**/*.js';
-
-/**
- * Function to find all PascalCase component files in the input directory.
- * @returns {string[]} Array of component file paths.
- * @throws Will throw an error if no components are found.
- */
+// Function to find PascalCase component files with 'index.js'
 const findComponents = () => {
-  // Use glob to find all 'index.js' files in the input directory
   const allComponents = glob.sync('**/index.js', { cwd: inputDir, nodir: true, absolute: true });
 
-  // Filter the found files to ensure they are within PascalCase directories
   const components = allComponents.filter(file => {
-    const componentName = path.basename(path.dirname(file)); // Extract component name from the directory name
-    return /^[A-Z][a-zA-Z0-9]*$/.test(componentName); // Ensure the directory follows PascalCase naming
+    const componentName = path.basename(path.dirname(file));
+    return /^[A-Z][a-zA-Z0-9]*$/.test(componentName);
   });
 
-  // Throw an error if no components are found
   if (components.length === 0) {
     throw new Error(`No components found in src directory (${inputDir}). Ensure it contains 'index.js' files in PascalCase subdirectories.`);
   }
@@ -40,9 +30,9 @@ const findComponents = () => {
   return components;
 };
 
-// Create a Rollup configuration for each component
+// Create Rollup configuration for each component
 const createConfig = (component) => {
-  const componentName = path.basename(path.dirname(component)); // Get the component folder name
+  const componentName = path.basename(path.dirname(component));
 
   return {
     input: component,
@@ -70,7 +60,7 @@ const createConfig = (component) => {
       babel({
         babelHelpers: 'runtime',
         exclude: 'node_modules/**',
-        presets: ['@babel/preset-env'],
+        presets: ['@babel/preset-env', '@babel/preset-typescript', ],
       }),
       alias({
         entries: [
@@ -78,9 +68,12 @@ const createConfig = (component) => {
         ],
       }),
       postcss({
-        extensions: ['.scss', '.css'],
+        extensions: ['.scss', '.css'], // Handle SCSS and CSS
         extract: path.join(outputDir, componentName, `${componentName}.css`), // Extract CSS for each component
-        minimize: true, // Minimize the CSS output
+        minimize: true,
+        use: [
+          ['sass', { includePaths: [path.resolve(__dirname, 'src', 'styles')] }],
+        ],
       }),
       terser(), // Minify JS output
       copy({
@@ -102,9 +95,6 @@ const createConfig = (component) => {
 // Find components and create Rollup configurations
 const components = findComponents();
 const configs = components.map(createConfig);
-
-// Log the configs for debugging
-console.log(configs);
 
 // Ensure the export is an array of configurations
 module.exports = configs;
