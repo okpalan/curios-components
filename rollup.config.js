@@ -8,8 +8,9 @@ import babel from '@rollup/plugin-babel';
 import postcss from 'rollup-plugin-postcss';
 import { visualizer } from 'rollup-plugin-visualizer';
 
-const inputDir = 'src/';
-const outputDir = 'dist';
+// Ensure valid directory paths
+const inputDir = path.resolve('src/');
+const outputDir = path.resolve('dist');
 const umdDir = path.join(outputDir, 'umd/draft-components');
 
 // Read all components from the input directory
@@ -62,7 +63,7 @@ const createConfig = (component) => ({
       filename: 'bundle-stats.html',
     }),
   ],
-  external: [],
+  external: [], // Add any external dependencies here if needed
   onwarn: (warning) => {
     if (warning.code === 'CIRCULAR_DEPENDENCY') {
       return;
@@ -77,8 +78,13 @@ const createConfig = (component) => ({
 // Store the configurations in a variable
 const configs = components.map(createConfig);
 
-// Log the configs for debugging
+// Ensure there is at least one valid configuration in the configs array
+if (configs.length === 0) {
+  throw new Error('No components found in src directory.');
+}
+
+// Log the configs for debugging (optional)
 console.log(configs);
 
-// Ensure the export is an array of configurations
+// Export the array of Rollup configurations
 export default configs;
