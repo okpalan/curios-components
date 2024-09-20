@@ -1,7 +1,7 @@
 module.exports = {
   testEnvironment: 'jsdom',
   extensionsToTreatAsEsm: ['.ts', '.tsx', '.jsx'],
-  
+  moduleDirectories: ['src','utils'],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
   
   transform: {
