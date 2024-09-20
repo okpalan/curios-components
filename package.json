@@ -87,6 +87,7 @@
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.79.2",
     "source-map": "^0.7.4",
+    "source-map-support": "^0.5.21",
     "ts-jest": "^29.2.5",
     "vue-jest": "^3.0.7"
   }
