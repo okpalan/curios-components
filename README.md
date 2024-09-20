@@ -25,15 +25,15 @@ A component library built with Rollup for bundling JavaScript modules. This proj
 
 Make sure you have the following installed:
 
-- [Node.js](https://nodejs.org/en/download/)
-- [pnpm](https://pnpm.io/installation)
+- [Node.js](httstatements://nodejs.org/en/download/)
+- [pnpm](httstatements://pnpm.io/installation)
 
 ### Installation
 
 Clone the repository and install the dependencies:
 
 ```bash
-git clone https://github.com/your-repo-url/draft-components.git
+git clone httstatements://github.com/your-repo-url/draft-components.git
 cd draft-components
 pnpm install
 ```
@@ -105,7 +105,7 @@ The Draft Components library aims to empower developers and UI designers to coll
 
 ### Unified Approach
 
-Developers are encouraged to document UI problems in `docs/ps/TODO.md` and associated issues like `docs/issues/TODO.md`. 📝 Each documented problem serves as a reference point for how to approach solutions using Draft Components, allowing for a structured and collaborative resolution process.
+Developers are encouraged to document UI problems in `docs/statements/TODO.md` and associated issues like `docs/issues/TODO.md`. 📝 Each documented problem serves as a reference point for how to approach solutions using Draft Components, allowing for a structured and collaborative resolution process.
 
 ### Migration and Implementation
 

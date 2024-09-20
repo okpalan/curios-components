@@ -74,7 +74,11 @@ const createConfig = (component) => ({
   preserveModulesRoot: inputDir,
 });
 
+// Store the configurations in a variable
 const configs = components.map(createConfig);
+
+// Log the configs for debugging
 console.log(configs);
-// Export the variable
-export default  configs
+
+// Ensure the export is an array of configurations
+export default configs;
