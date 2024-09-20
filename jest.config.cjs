@@ -1,6 +1,6 @@
 module.exports = {
   testEnvironment: 'jsdom',
-  setupFilesAfterEnv: ['./utils/setupTests.js'],
+  setupFilesAfterEnv: ['./utils/setupTests.cjs'],
   extensionsToTreatAsEsm: ['.ts', '.tsx',], 
 
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
