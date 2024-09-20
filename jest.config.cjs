@@ -2,7 +2,7 @@
 module.exports = {
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['./utils/setupTests.mjs'],
-  extensionsToTreatAsEsm: ['.ts', '.tsx', '.mjs'], 
+  extensionsToTreatAsEsm: ['.ts', '.tsx', '.js', '.jsx'], 
 
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
   transform: {
