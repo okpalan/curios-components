@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1726841560279" clover="3.2.0">
-  <project timestamp="1726841560279" name="All files">
+<coverage generated="1726841807766" clover="3.2.0">
+  <project timestamp="1726841807766" name="All files">
     <metrics statements="99" coveredstatements="0" conditionals="28" coveredconditionals="0" methods="36" coveredmethods="0" elements="163" coveredelements="0" complexity="0" loc="99" ncloc="99" packages="1" files="1" classes="1"/>
     <file name="NoisyNotification.js" path="C:\msys64\home\okpal\My Projects\gufn\gufn-onboarding\draft-components\src\NoisyNotification\NoisyNotification.js">
       <metrics statements="99" coveredstatements="0" conditionals="28" coveredconditionals="0" methods="36" coveredmethods="0"/>

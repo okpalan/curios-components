@@ -8,6 +8,7 @@
     margin-bottom: 20px;
     transition: height 0.3s ease;
 
+    // State-based background colors
     &[state="danger"] {
         background-color: #FF4500; // Red-Orange
     }
@@ -55,6 +56,10 @@
         border: none;
         cursor: pointer;
         padding: 0;
+
+        &:hover {
+            opacity: 0.8; // Add hover effect for better UX
+        }
     }
 
     .expand-button {

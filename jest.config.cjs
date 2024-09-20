@@ -19,7 +19,11 @@ module.exports = {
   moduleNameMapper: {
     '\\.(css|less)$': 'identity-obj-proxy',
     '\\.(gif|jpg|jpeg|png)$': 'jest-transform-stub',
+    '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
+    '^@/(.*)$': '<rootDir>/src/$1',
+
   },
+
   transformIgnorePatterns: [
     '/node_modules/(?!@open-wc/testing)',
     '^.+\\.module\\.(css|sass|scss)$',
