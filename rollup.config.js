@@ -7,6 +7,7 @@ import babel from '@rollup/plugin-babel';
 import copy from 'rollup-plugin-copy';
 import postcss from 'rollup-plugin-postcss';
 import terser from '@rollup/plugin-terser';
+import sass from 'sass';
 
 // Define input and output directories
 const inputDir = path.resolve(process.cwd(), 'src');
