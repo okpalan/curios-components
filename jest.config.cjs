@@ -22,8 +22,9 @@ module.exports = {
     '\\.(gif|jpg|jpeg|png)$': 'jest-transform-stub',
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
     '^@/(.*)$': '<rootDir>/src/$1',
-    '\\.(css|scss)$': 'identity-obj-proxy',
+    '\\.(css|scss)$': 'identity-obj-proxy', 
     '\\.html$': '<template></template>', 
+
 
 
   },
