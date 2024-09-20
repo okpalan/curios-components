@@ -6,7 +6,12 @@ module.exports = {
     "@babel/preset-typescript"
   ],
   plugins: [
-    "@babel/plugin-transform-runtime"
+    "@babel/plugin-transform-runtime",
+    ["module-resolver", {
+      "alias": {
+        "@": "./src"
+      }
+    }]
   ],
   env: {
     test: {

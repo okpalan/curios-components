@@ -8,6 +8,8 @@ import copy from 'rollup-plugin-copy';
 import postcss from 'rollup-plugin-postcss';
 import terser from '@rollup/plugin-terser';
 import sass from 'sass';
+import alias from '@rollup/plugin-alias';
+
 
 // Define input and output directories
 const inputDir = path.resolve(process.cwd(), 'src');
@@ -59,6 +61,11 @@ const createConfig = (component) => ({
     sass({
       includePaths: [path.resolve(__dirname, 'src', 'styles')],
       outputStyle: 'compressed',
+    }),
+    alias({
+      entries: [
+        { find: '@', replacement: path.resolve(__dirname, 'src') }
+      ]
     }),
     babel({
       babelHelpers: 'runtime',
