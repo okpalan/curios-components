@@ -120,6 +120,5 @@ Once approved, your changes will be merged into the main repository!
 - **Be Clear:** When creating a Merge Request, be as detailed as possible to help reviewers understand the context of your changes.
 
 ## Conclusion
-
 Thank you for contributing to Draft Components! We appreciate your time and effort, and we look forward to working with you.
 

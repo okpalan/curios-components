@@ -9,23 +9,18 @@ const DIST_DIR = path.join(process.cwd(),'dist', 'assets');
 const TIMEOUT = 10000; // 10 seconds
 
 async function copyAssets() {
-    return new Promise((resolve, reject) => {
-        if (!fs.existsSync(ASSETS_DIR)) {
-            return reject(new Error('Assets directory does not exist.'));
-        }
+    if (!fs.existsSync(ASSETS_DIR)) {
+        throw new Error('Assets directory does not exist.');
+    }
 
-        // Create destination directory
-        fs.mkdirSync(DIST_DIR, { recursive: true });
+    // Create destination directory
+    await fs.promises.mkdir(DIST_DIR, { recursive: true });
 
-        fs.readdir(ASSETS_DIR, (err, files) => {
-            if (err) return reject(err);
-            files.forEach(file => {
-                fs.copyFileSync(path.join(ASSETS_DIR, file), path.join(DIST_DIR, file));
-            });
-            console.log('Assets copied successfully.');
-            resolve();
-        });
-    });
+    const files = await fs.promises.readdir(ASSETS_DIR);
+    for (const file of files) {
+        await fs.promises.copyFile(path.join(ASSETS_DIR, file), path.join(DIST_DIR, file));
+    }
+    console.log('Assets copied successfully.');
 }
 
 function waitForAssets(timeout) {

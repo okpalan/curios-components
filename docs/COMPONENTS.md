@@ -1,5 +1,3 @@
-
-
 ### UI/UX Components (`noisy-` prefix)
 These are interactive or user-facing components that focus on user experience and design.
 
