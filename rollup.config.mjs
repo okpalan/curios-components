@@ -4,6 +4,10 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import terser from "@rollup/plugin-terser";
 import copy from "rollup-plugin-copy";
+import babel from "@rollup/plugin-babel";
+import postcss from "rollup-plugin-postcss"; // Corrected import for postcss
+import { terser } from "rollup-plugin-terser"; // Ensure proper import for terser
+import visualizer from "rollup-plugin-visualizer"; // Optional: Visualize bundle size
 
 const inputDir = "src/";
 const outputDir = "dist";
@@ -39,6 +43,10 @@ const createConfig = (component) => [
     plugins: [
       resolve(),
       commonjs(),
+      babel({
+        babelHelpers: "bundled",
+        extensions: [".js"],
+      }),
       copy({
         targets: [{ src: "src/assets/*", dest: "dist/assets" }],
         verbose: true, // Optional: Log each copy operation
@@ -58,6 +66,10 @@ const createConfig = (component) => [
         ],
       }),
       terser(),
+      visualizer({ 
+        open: true, // Automatically open the visualizer
+        filename: 'bundle-stats.html' // Output file for stats
+      }),
     ],
   },
 ];
