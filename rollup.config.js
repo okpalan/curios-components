@@ -22,17 +22,15 @@ const componentPattern = '**/[A-Z]*.js';
  * @throws Will throw an error if no components are found.
  */
 const findComponents = () => {
-  const allComponents = glob.sync(componentPattern, { cwd: inputDir, nodir: true, absolute: true });
+  const allComponents = glob.sync('**/index.js', { cwd: inputDir, nodir: true, absolute: true });
 
-  const components = allComponents.filter(file =>
-    // Check if the file is a JavaScript file
-    (file.endsWith('.js') || file.endsWith('.jsx')) &&
-    // Check if the file is directly in a subdirectory or is named 'index.js'
-    (file.endsWith('/index.js') || /^[A-Z][a-zA-Z0-9]*\.js$/.test(path.basename(file)))
-  );
+  const components = allComponents.filter(file => {
+    const componentName = path.basename(path.dirname(file)); // Extract component name from directory
+    return /^[A-Z][a-zA-Z0-9]*$/.test(componentName); // Ensure PascalCase
+  });
 
   if (components.length === 0) {
-    throw new Error(`No components found in src directory (${inputDir}). Ensure it contains .js or .jsx files.`);
+    throw new Error(`No components found in src directory (${inputDir}). Ensure it contains 'index.js' files in subdirectories.`);
   }
 
   return components;
