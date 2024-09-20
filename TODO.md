@@ -1,6 +1,9 @@
 ## Hey Auto-Dev,
 
+- Please press CTRL+SHIFT+V on keyboard:
+
 Thanks for jumping in to help with the project! Since you're new, I’ve written out some detailed steps to guide you through the tasks ahead. Let’s tackle them one by one, starting from the easier ones, then moving on to the more complex tasks.
+
 
 ### Step 1: Fix the Rollup Configuration
 
