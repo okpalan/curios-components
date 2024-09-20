@@ -1,4 +1,2 @@
-import NoisyNotification from './NoisyNotification'; 
-
-// Re-export the component
-export { NoisyNotification };
+import NoisyNotification from './NoisyNotification.jsx'; 
+export default NoisyNotification;

@@ -15,8 +15,7 @@ const outputDir = path.resolve(process.cwd(), 'dist');
 const umdDir = path.join(outputDir, 'umd/draft-components');
 
 // Define the pattern to find PascalCase components
-const componentPattern = '**/[A-Z]*/**/*.js';
-
+const componentPattern = '**/[A-Z]*.js';
 /**
  * Function to find all PascalCase component files in the input directory.
  * @returns {string[]} Array of component file paths.
@@ -26,11 +25,14 @@ const findComponents = () => {
   const allComponents = glob.sync(componentPattern, { cwd: inputDir, nodir: true, absolute: true });
 
   const components = allComponents.filter(file =>
-    /^[A-Z][a-zA-Z0-9]*\/.*\.js$/.test(path.relative(inputDir, file))
+    // Check if the file is a JavaScript file
+    (file.endsWith('.js') || file.endsWith('.jsx')) &&
+    // Check if the file is directly in a subdirectory or is named 'index.js'
+    (file.endsWith('/index.js') || /^[A-Z][a-zA-Z0-9]*\.js$/.test(path.basename(file)))
   );
 
   if (components.length === 0) {
-    throw new Error(`No components found in src directory (${inputDir}). Ensure it contains .js files.`);
+    throw new Error(`No components found in src directory (${inputDir}). Ensure it contains .js or .jsx files.`);
   }
 
   return components;
