@@ -6,7 +6,7 @@ module.exports = {
   extensionsToTreatAsEsm: [".ts", ".tsx", ".jsx"],
   moduleDirectories: ['src', 'utils', 'node_modules'],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
-  moduleFileExtensions: ["js", "json", "jsx", "ts", "tsx", "node"],
+  moduleFileExtensions: ['js', 'json', 'jsx', 'ts', 'tsx', 'html', "node"],
   collectCoverage: true,
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
