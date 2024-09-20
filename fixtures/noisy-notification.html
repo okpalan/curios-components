@@ -18,30 +18,5 @@
     </style>
 </head>
 <body>
-
-    <draft-noisy-notification state="info-active" tint="1" duration="10000">
-        <div class="noise"></div>
-        <button class="close-button">Close</button>
-        <button class="expand-button">Expand</button>
-    </draft-noisy-notification>
-
-    <script>
-        const notification = document.querySelector('draft-noisy-notification');
-
-        // Add event listeners for testing functionality
-        notification.addEventListener('dismissed', () => {
-            console.log('Notification dismissed');
-            notification.remove();
-        });
-
-        // Optionally, set up button functionality
-        notification.shadowRoot.querySelector('.close-button').addEventListener('click', () => {
-            notification.dismissState();
-        });
-
-        notification.shadowRoot.querySelector('.expand-button').addEventListener('click', () => {
-            notification.toggleExpand();
-        });
-    </script>
 </body>
 </html>
