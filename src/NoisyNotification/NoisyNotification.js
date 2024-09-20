@@ -1,4 +1,4 @@
- class NoisyNotification extends HTMLElement {
+ export class NoisyNotification extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
