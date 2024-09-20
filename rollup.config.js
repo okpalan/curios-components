@@ -6,15 +6,21 @@ import terser from '@rollup/plugin-terser';
 import copy from 'rollup-plugin-copy';
 import babel from '@rollup/plugin-babel';
 import postcss from 'rollup-plugin-postcss';
-import { visualizer } from 'rollup-plugin-visualizer';
+// import { visualizer } from 'rollup-plugin-visualizer';
 import {glob} from 'glob';  
 
-const inputDir = path.resolve(__dirname, 'src');
-const outputDir = path.resolve(__dirname, 'dist');
+const inputDir = path.resolve(process.cwd(), 'src');
+const outputDir = path.resolve(process.cwd(), 'dist');
 const umdDir = path.join(outputDir, 'umd/draft-components');
 
-// Use glob to find all .js files in the src directory
-const components = glob.sync('**/*.js', { cwd: inputDir });
+// Define the regex pattern for matching PascalCase components
+const componentPattern = '**/*[A-Z]*/*.js'; // Matches any directory with PascalCase names
+
+// Use glob to find all .js files in the src directory that match the pattern
+const allComponents = glob.sync(componentPattern, { cwd: inputDir });
+
+// Filter for directories that match the PascalCase naming convention
+const components = allComponents.filter(file => /^[A-Z][a-zA-Z0-9]*\/.*\.js$/.test(file));
 
 if (components.length === 0) {
   throw new Error(`No components found in src directory (${inputDir}). Ensure it contains .js files.`);
