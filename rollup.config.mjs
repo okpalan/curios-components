@@ -12,59 +12,53 @@ const inputDir = 'src/';
 const outputDir = 'dist';
 const umdDir = path.join(outputDir, 'umd/draft-components');
 
-// List all JavaScript files in the src directory
 const components = fs
   .readdirSync(inputDir)
   .filter((file) => file.endsWith('.js') || file === 'index.js');
 
-// Create a Rollup config for each component
-const createConfig = (component) => [
-  {
-    input: path.join(inputDir, component),
-    output: [
-      {
-        file: path.join(outputDir, component.replace('.js', '.cjs.js')),
-        format: 'cjs',
-        sourcemap: true,
-      },
-      {
-        file: path.join(outputDir, component.replace('.js', '.esm.js')),
-        format: 'esm',
-        sourcemap: true,
-      },
-      {
-        file: path.join(umdDir, component.replace('.js', '.umd.js')),
-        format: 'umd',
-        name: 'DraftComponents',
-        sourcemap: true,
-      },
-    ],
-    plugins: [
-      resolve(),
-      commonjs(),
-      babel({
-        babelHelpers: 'runtime',
-        exclude: 'node_modules/**',
-        presets: ['@babel/preset-env'],
-      }),
-      copy({
-        targets: [{ src: 'src/assets/*', dest: 'dist/assets' }],
-        verbose: true,
-        hook: 'writeBundle',
-      }),
-      postcss({
-        extensions: ['.scss', '.css'],
-        extract: true,
-        minimize: true,
-      }),
-      terser(),
-      visualizer({ 
-        open: true,
-        filename: 'bundle-stats.html',
-      }),
-    ],
-  },
-];
+const createConfig = (component) => ({
+  input: path.join(inputDir, component),
+  output: [
+    {
+      file: path.join(outputDir, component.replace('.js', '.cjs.js')),
+      format: 'cjs',
+      sourcemap: true,
+    },
+    {
+      file: path.join(outputDir, component.replace('.js', '.esm.js')),
+      format: 'esm',
+      sourcemap: true,
+    },
+    {
+      file: path.join(umdDir, component.replace('.js', '.umd.js')),
+      format: 'umd',
+      name: 'DraftComponents',
+      sourcemap: true,
+    },
+  ],
+  plugins: [
+    resolve(),
+    commonjs(),
+    babel({
+      babelHelpers: 'runtime',
+      exclude: 'node_modules/**',
+      presets: ['@babel/preset-env'],
+    }),
+    copy({
+      targets: [{ src: 'src/assets/*', dest: 'dist/assets' }],
+      verbose: true,
+      hook: 'writeBundle',
+    }),
+    postcss({
+      extensions: ['.scss', '.css'],
+      extract: true,
+      minimize: true,
+    }),
+    terser(),
+    visualizer({ 
+      open: true,
+      filename: 'bundle-stats.html',
+    }),
+});
 
-// Export an array of configurations
-export default [].concat(...components.map(createConfig));
+export default components.map(createConfig);
