@@ -1,5 +1,4 @@
-/* eslint-disable-next-line import/no-unused-modules */
-import NoisyNotification from '../../src/main.cjs';
+const NoisyNotification = require('../../src/noisy-notification/noisy-notification.js');
 
 describe('NoisyNotification', () => {
     let element;
