@@ -1,3 +1,2 @@
-// index.js
 require = require("esm")(module);
-module.exports = require("./src/main.js");
+module.exports = require("./src/main.cjs");
