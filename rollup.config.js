@@ -7,10 +7,17 @@ import copy from 'rollup-plugin-copy';
 import babel from '@rollup/plugin-babel';
 import postcss from 'rollup-plugin-postcss';
 // import { visualizer } from 'rollup-plugin-visualizer';
+<<<<<<< HEAD
 import {glob} from 'glob';  
 
 const inputDir = path.resolve(process.cwd(), 'src');
 const outputDir = path.resolve(process.cwd(), 'dist');
+=======
+import glob from 'glob';
+
+const inputDir = 'src/';
+const outputDir = 'dist';
+>>>>>>> features/fix-rollup-config
 const umdDir = path.join(outputDir, 'umd/draft-components');
 
 // Define the regex pattern for matching PascalCase components
@@ -83,6 +90,9 @@ const createConfig = (component) => ({
 
 // Store the configurations in a variable
 const configs = components.map(createConfig);
+
+// Log the configs for debugging
+console.log(configs);
 
 // Ensure the export is an array of configurations
 export default configs;
