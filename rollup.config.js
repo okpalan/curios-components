@@ -56,6 +56,10 @@ const createConfig = (component) => ({
   plugins: [
     resolve(),
     commonjs(),
+    sass({
+      includePaths: [path.resolve(__dirname, 'src', 'styles')],
+      outputStyle: 'compressed',
+    }),
     babel({
       babelHelpers: 'runtime',
       exclude: 'node_modules/**',
