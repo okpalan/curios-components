@@ -7,26 +7,26 @@
     font-weight: bold;
     margin-bottom: 20px;
     transition: height 0.3s ease;
-}
 
-:host([state="danger"]) {
-    background-color: #FF4500; /* Red-Orange */
-}
+    &[state="danger"] {
+        background-color: #FF4500; // Red-Orange
+    }
 
-:host([state="warning"]) {
-    background-color: #F6C737; /* Orange-Yellow */
-}
+    &[state="warning"] {
+        background-color: #F6C737; // Orange-Yellow
+    }
 
-:host([state="success"]) {
-    background-color: #52C74D; /* Green-Blue */
-}
+    &[state="success"] {
+        background-color: #52C74D; // Green-Blue
+    }
 
-:host([state="info-active"]) {
-    background-color: #52C7AD; /* Green-Blue */
-}
+    &[state="info-active"] {
+        background-color: #52C7AD; // Green-Blue
+    }
 
-:host([state="info-inactive"]) {
-    background-color: #5E7A74; /* Greyish */
+    &[state="info-inactive"] {
+        background-color: #5E7A74; // Greyish
+    }
 }
 
 .noise {
@@ -48,18 +48,21 @@
     display: flex;
     gap: 10px;
     align-items: center;
-}
 
-.close-button, .expand-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-}
+    .close-button,
+    .expand-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
 
-.expand-button img {
-    width: 20px;
-    height: 20px;
+    .expand-button {
+        img {
+            width: 20px;
+            height: 20px;
+        }
+    }
 }
 
 .progress-bar {
@@ -69,10 +72,10 @@
     width: 100%;
     height: 5px;
     background: rgba(255, 255, 255, 0.3);
-}
 
-.progress {
-    height: 100%;
-    background: #52C74D;
-    transition: width 0.1s linear;
+    .progress {
+        height: 100%;
+        background: #52C74D;
+        transition: width 0.1s linear;
+    }
 }
