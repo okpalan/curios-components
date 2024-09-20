@@ -1,7 +1,6 @@
-
 // Import the setup functions
-const { setupJest } = require('./utils/setupJest.cjs');
-const { setupTests } = require('./utils/setupTests.cjs');
+const { setupJest } = require('../utils/setupJest.cjs');
+const { setupTests } = require('../utils/setupTests.cjs');
 
 // Call the setup functions
 setupJest();
