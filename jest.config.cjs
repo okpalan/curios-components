@@ -5,7 +5,12 @@ module.exports = {
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
   moduleFileExtensions: ["js", "json", "jsx", "ts", "tsx", "node"],
   testEnvironment: "jsdom",
-
+  testURL: "http://localhost",
+  collectCoverage: true,
+  collectCoverageFrom: [
+    "src/**/*.{js,jsx,ts,tsx}",
+    "!**/node_modules/**",
+  ]
   transform: {
     '^.+\\.jsx?$': ['babel-jest', { configFile: './babel.config.test.cjs' }],
     '^.+\\.ts$': 'ts-jest',
