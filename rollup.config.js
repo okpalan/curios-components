@@ -7,9 +7,10 @@ import copy from 'rollup-plugin-copy';
 import babel from '@rollup/plugin-babel';
 import postcss from 'rollup-plugin-postcss';
 import { visualizer } from 'rollup-plugin-visualizer';
+import sass from 'sass';
 
 // Ensure valid directory paths
-const inputDir = path.resolve('src/');
+const inputDir = path.resolve(__dirname, 'src');
 const outputDir = path.resolve('dist');
 const umdDir = path.join(outputDir, 'umd/draft-components');
 
@@ -17,6 +18,14 @@ const umdDir = path.join(outputDir, 'umd/draft-components');
 const components = fs
   .readdirSync(inputDir)
   .filter((file) => file.endsWith('.js') || file === 'index.js');
+
+console.log(`Found components:`, components); // Log the found components
+
+// Ensure there is at least one valid configuration in the configs array
+if (components.length === 0) {
+  throw new Error(`No components found in src directory (${inputDir}). Ensure it contains .js files.`);
+}
+
 
 // Create a Rollup configuration for each component
 const createConfig = (component) => ({
@@ -78,10 +87,7 @@ const createConfig = (component) => ({
 // Store the configurations in a variable
 const configs = components.map(createConfig);
 
-// Ensure there is at least one valid configuration in the configs array
-if (configs.length === 0) {
-  throw new Error('No components found in src directory.');
-}
+
 
 // Log the configs for debugging (optional)
 console.log(configs);
