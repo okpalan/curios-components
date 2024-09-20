@@ -1,16 +1,20 @@
-import NoisyNotification from './src/index.js'
+/* eslint-disable-next-line import/no-unused-modules */
+import NoisyNotification from '../src/index.js';
 
 describe('NoisyNotification', () => {
     let element;
 
-    beforeEach(async () => {
+    beforeEach(() => {
         element = document.createElement('noisy-notification');
-        await element.loadTemplate(); // Ensure the template is loaded
         document.body.appendChild(element);
     });
 
     afterEach(() => {
         document.body.removeChild(element);
+    });
+
+    it('should be defined', () => {
+        expect(NoisyNotification).toBeDefined(); // Prevents ESLint from flagging the import as unused
     });
 
     it('should initialize with default values', () => {
@@ -23,7 +27,6 @@ describe('NoisyNotification', () => {
 
     it('should update state attribute', () => {
         element.setAttribute('state', 'danger');
-        expect(element.style.backgroundColor).toBe('#FF4500'); // Check danger color
+        expect(getComputedStyle(element).backgroundColor).toBe('rgb(255, 69, 0)'); // Check danger color
     });
-
 });
