@@ -1,4 +1,4 @@
-import '../../dist/umd/draft-components.js';
+import NoisyNotification from '../../src/noisy-notification/noisy-notification.js';
 
 describe('NoisyNotification', () => {
     let element;
@@ -26,5 +26,4 @@ describe('NoisyNotification', () => {
         expect(element.style.backgroundColor).toBe('#FF4500'); // Check danger color
     });
 
-    // Add other tests similarly
 });
