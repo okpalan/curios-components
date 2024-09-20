@@ -1,21 +1,21 @@
-import fs from "fs";
-import path from "path";
-import resolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
-import terser from "@rollup/plugin-terser";
-import copy from "rollup-plugin-copy";
-import babel from "@rollup/plugin-babel";
-import postcss from "rollup-plugin-postcss";
-import { visualizer } from "rollup-plugin-visualizer";
+import fs from 'fs';
+import path from 'path';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import terser from '@rollup/plugin-terser';
+import copy from 'rollup-plugin-copy';
+import babel from '@rollup/plugin-babel';
+import postcss from 'rollup-plugin-postcss';
+import { visualizer } from 'rollup-plugin-visualizer';
 
-const inputDir = "src/";
-const outputDir = "dist";
-const umdDir = path.join(outputDir, "umd/draft-components");
+const inputDir = 'src/';
+const outputDir = 'dist';
+const umdDir = path.join(outputDir, 'umd/draft-components');
 
 // List all JavaScript files in the src directory
 const components = fs
   .readdirSync(inputDir)
-  .filter((file) => file.endsWith(".js") || file === "index.js");
+  .filter((file) => file.endsWith('.js') || file === 'index.js');
 
 // Create a Rollup config for each component
 const createConfig = (component) => [
@@ -23,19 +23,19 @@ const createConfig = (component) => [
     input: path.join(inputDir, component),
     output: [
       {
-        file: path.join(outputDir, component.replace(".js", ".cjs.js")),
-        format: "cjs",
+        file: path.join(outputDir, component.replace('.js', '.cjs.js')),
+        format: 'cjs',
         sourcemap: true,
       },
       {
-        file: path.join(outputDir, component.replace(".js", ".esm.js")),
-        format: "esm",
+        file: path.join(outputDir, component.replace('.js', '.esm.js')),
+        format: 'esm',
         sourcemap: true,
       },
       {
-        file: path.join(umdDir, component.replace(".js", ".umd.js")),
-        format: "umd",
-        name: "DraftComponents",
+        file: path.join(umdDir, component.replace('.js', '.umd.js')),
+        format: 'umd',
+        name: 'DraftComponents',
         sourcemap: true,
       },
     ],
@@ -45,31 +45,20 @@ const createConfig = (component) => [
       babel({
         babelHelpers: 'runtime',
         exclude: 'node_modules/**',
-        presets: [
-          "@babel/preset-env",
-          "@babel/preset-typescript",
-        ],
+        presets: ['@babel/preset-env'],
       }),
       copy({
-        targets: [{ src: "src/assets/*", dest: "dist/assets" }],
+        targets: [{ src: 'src/assets/*', dest: 'dist/assets' }],
         verbose: true,
-        hook: "writeBundle",
+        hook: 'writeBundle',
       }),
       postcss({
-        extensions: [".scss", ".css"],
-        extract: path.join(outputDir, 'styles.css'), // Extracts all styles into a single file
+        extensions: ['.scss', '.css'],
+        extract: true,
         minimize: true,
-        use: [
-          [
-            "sass",
-            {
-              includePaths: ["./src/styles"], // Path to your styles
-            },
-          ],
-        ],
       }),
       terser(),
-      visualizer({
+      visualizer({ 
         open: true,
         filename: 'bundle-stats.html',
       }),
@@ -78,4 +67,4 @@ const createConfig = (component) => [
 ];
 
 // Export an array of configurations
-export default components.flatMap(createConfig);
+export default [].concat(...components.map(createConfig));
