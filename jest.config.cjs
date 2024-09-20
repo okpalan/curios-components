@@ -1,7 +1,7 @@
 module.exports = {
   testEnvironment: 'jsdom',
   extensionsToTreatAsEsm: ['.ts', '.tsx', '.jsx'],
-  moduleDirectories: ['src','utils'],
+  moduleDirectories: ['src','utils', 'node_modules',],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
   
   transform: {
@@ -23,7 +23,7 @@ module.exports = {
     'ts-jest': {
       useESM: true,
       tsconfig: 'tsconfig.json',
-      sourceMap: true, // Disable source maps
+      sourceMap: false, // Disable source maps
 
     },
   },
