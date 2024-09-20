@@ -23,7 +23,7 @@ module.exports = {
     'ts-jest': {
       useESM: true,
       tsconfig: 'tsconfig.json',
-      sourceMap: false, // Disable source maps
+      sourceMap: true, // Disable source maps
 
     },
   },
