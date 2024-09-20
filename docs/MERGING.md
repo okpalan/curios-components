@@ -30,5 +30,5 @@ To merge the changes from the `features/fix-rollup-config` branch into the `main
    git push origin main
    ```
 
-That's it! Your changes from `features/fix-rollup-config` will now be merged into the `main` branch. If you have any questions or need further assistance, feel free to ask!
+That's it! Your changes from `features/feature-name` will now be merged into the `main` branch. If you have any questions or need further assistance, feel free to ask!
 
