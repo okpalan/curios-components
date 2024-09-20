@@ -1,13 +1,19 @@
 {
-    "presets": ["@babel/preset-env","@babel/preset-typescript"],
-    "plugins": ["@babel/plugin-transform-runtime"],
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-typescript"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-runtime"
+    ],
     "env": {
       "test": {
-        "plugins": ["@babel/plugin-transform-modules-commonjs"]
+        "plugins": [
+          "@babel/plugin-transform-modules-commonjs"
+        ]
       }
     },
     "retainLines": true,
-    "compact": true
-    
+    "compact": false
   }
   
