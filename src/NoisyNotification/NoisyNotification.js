@@ -1,4 +1,5 @@
 import './NoisyNotification.scss';
+
 export class NoisyNotification extends HTMLElement {
     constructor() {
         super();

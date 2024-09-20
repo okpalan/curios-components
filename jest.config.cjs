@@ -15,12 +15,15 @@ module.exports = {
   transform: {
     '^.+\\.jsx?$': ['babel-jest', { configFile: './babel.config.test.cjs' }],
     '^.+\\.ts$': 'ts-jest',
+
   },
   moduleNameMapper: {
     '\\.(css|less)$': 'identity-obj-proxy',
     '\\.(gif|jpg|jpeg|png)$': 'jest-transform-stub',
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
     '^@/(.*)$': '<rootDir>/src/$1',
+    '\\.(html)$': '<rootDir>/__mocks__/htmlMock.js', 
+    
 
   },
 
