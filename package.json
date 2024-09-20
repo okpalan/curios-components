@@ -39,12 +39,18 @@
     ]
   },
   "scripts": {
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint --fix .",
+    "clean": "rimraf ./dist",
     "build": "rollup -c",
     "build:types": "tsc -p tsconfig.json",
     "prepublishOnly": "npm run build && npm run build:types",
     "serve": "http-server ./fixtures -p 3000 -c-1",
     "test": "jest",
-    "husky-install": "husky install"
+    "husky-install": "husky install",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+    
   },
   "keywords": [
     "gufn",
