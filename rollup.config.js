@@ -19,11 +19,9 @@ const umdDir = path.join(outputDir, 'umd/draft-components');
  * @throws Will throw an error if no components are found.
  */
 const findComponents = () => {
-  // Matches any PascalCase directory and looks for .js files inside
-  const componentPattern = '**/[A-Z]*/**/*.js'; // Recursive pattern
+  const componentPattern = '**/[A-Z]*/**/*.js';
   const allComponents = glob.sync(componentPattern, { cwd: inputDir, nodir: true, absolute: true });
 
-  // Filter for files that match the PascalCase naming convention in the correct structure
   const components = allComponents.filter(file => /^[A-Z][a-zA-Z0-9]*\/.*\.js$/.test(path.relative(inputDir, file)));
 
   if (components.length === 0) {
@@ -35,7 +33,7 @@ const findComponents = () => {
 
 // Create a Rollup configuration for each component
 const createConfig = (component) => ({
-  input: component, // Use the absolute path directly
+  input: component,
   output: [
     {
       file: path.join(outputDir, path.basename(component).replace('.js', '.cjs.js')),
@@ -69,8 +67,8 @@ const createConfig = (component) => ({
     }),
     postcss({
       extensions: ['.scss', '.css'],
-      extract: true,
-      minimize: true,
+      extract: true, // Extract CSS to a separate file
+      minimize: true, // Minimize the CSS
     }),
     terser(),
   ],
