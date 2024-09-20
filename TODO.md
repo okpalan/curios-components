@@ -48,11 +48,6 @@ Testing is essential to make sure the components and changes we’ve made are so
 - **Ensure** that the tests cover basic functionality as well as edge cases. It’s better to catch any weird behavior now than deal with bugs later!
 - Once the tests are written, **run them** to make sure everything is working correctly. If something breaks, don’t worry! We’ll fix it together.
 
----
-
-### Final Thoughts
-
-By following these steps, you’ll move from smaller, more manageable tasks to bigger challenges. If you run into any issues, don’t hesitate to ask for help! We’re in this together, and I’m always here to guide you through any roadblocks. Once you’re comfortable, you’ll be flying through tasks like a pro!
 
 
 Looking forward to seeing the awesome work you’ll do!
