@@ -1,4 +1,4 @@
-import NoisyNotification from '../../src/noisy-notification/noisy-notification.js';
+import NoisyNotification from '../../src/noisy-notification/noisy-notification.jsx';
 
 describe('NoisyNotification', () => {
     let element;

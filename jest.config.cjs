@@ -1,29 +1,29 @@
 module.exports = {
   testEnvironment: 'jsdom',
-  extensionsToTreatAsEsm: ['.ts', '.tsx'],
-
+  extensionsToTreatAsEsm: ['.ts', '.tsx', '.jsx'],
+  
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
-
+  
   transform: {
-    '^.+\\.jsx?$': ['babel-jest', { configFile: './babel.config.test.cjs' }], // For JavaScript files
-    '^.+\\.ts$': 'ts-jest', // For TypeScript files
+    '^.+\\.jsx?$': ['babel-jest', { configFile: './babel.config.test.cjs' }],
+    '^.+\\.ts$': 'ts-jest',
   },
-
+  
   moduleNameMapper: {
-    '\\.(css|less|scss)$': 'identity-obj-proxy', // Mock CSS modules
-    '\\.(gif|jpg|jpeg|png)$': 'jest-transform-stub', // Mock image files
+    '\\.(css|less)$': 'identity-obj-proxy',
+    '\\.(gif|jpg|jpeg|png)$': 'jest-transform-stub',
   },
-
+  
   transformIgnorePatterns: [
-    '/node_modules/(?!@open-wc/testing)', // Include specific modules for transformation
-    '^.+\\.module\\.(css|sass|scss)$', // Ignore CSS modules
+    '/node_modules/(?!@open-wc/testing)', 
+    '^.+\\.module\\.(css|sass|scss)$',
   ],
-
+  
   globals: {
     'ts-jest': {
-      useESM: true, // Enable ESM support for TypeScript files
+      useESM: true,
     },
   },
-
-  setupFilesAfterEnv: ['./utils/setupTests.cjs'], // Setup file after environment
+  
+  setupFilesAfterEnv: ['./utils/setupTests.cjs'], 
 };
