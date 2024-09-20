@@ -73,6 +73,7 @@
     "chai": "^5.1.1",
     "eslint": "^8.57.1",
     "eslint-plugin-vue": "^9.28.0",
+    "esm": "^3.2.25",
     "http-server": "^14.1.1",
     "husky": "^8.0.0",
     "identity-obj-proxy": "^3.0.0",

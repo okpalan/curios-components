@@ -1,9 +1,11 @@
 module.exports = {
   testEnvironment: 'jsdom',
-  extensionsToTreatAsEsm: ['.ts', '.tsx', '.jsx'],
+  extensionsToTreatAsEsm: [".ts", ".tsx", ".jsx", ".js"],
   moduleDirectories: ['src','utils', 'node_modules',],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
-  
+  moduleFileExtensions: ["js", "json", "jsx", "ts", "tsx", "node"],
+  testEnvironment: "jsdom",
+
   transform: {
     '^.+\\.jsx?$': ['babel-jest', { configFile: './babel.config.test.cjs' }],
     '^.+\\.ts$': 'ts-jest',
@@ -28,5 +30,5 @@ module.exports = {
     },
   },
   
-  setupFilesAfterEnv: ['./utils/setupTests.cjs'], 
+  setupFilesAfterEnv: ['./utils/setupTests.cjs', './setupJest.cjs'], 
 };
