@@ -23,6 +23,7 @@ module.exports = {
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
     '^@/(.*)$': '<rootDir>/src/$1',
     '\\.(html)$': '<rootDir>/__mocks__/htmlMock.js', 
+    '\\.(scss|sass)$': '<rootDir>/__mocks__/scssMock.js', 
     
 
   },
