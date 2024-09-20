@@ -7,8 +7,7 @@ import copy from 'rollup-plugin-copy';
 import babel from '@rollup/plugin-babel';
 import postcss from 'rollup-plugin-postcss';
 import { visualizer } from 'rollup-plugin-visualizer';
-import glob from 'glob';  // Import the glob package
-
+import { glob} from 'glob';  
 const inputDir = path.resolve(__dirname, 'src');
 const outputDir = path.resolve(__dirname, 'dist');
 const umdDir = path.join(outputDir, 'umd/draft-components');
