@@ -1,13 +1,13 @@
 module.exports = {
-    extends: [
+  extends: [
       'plugin:vue/vue3-essential',
-      '@vue/typescript/recommended'
-    ],
-    parserOptions: {
+      '@vue/typescript/recommended',
+      'plugin:prettier/recommended' // Add this line
+  ],
+  parserOptions: {
       ecmaVersion: 2020
-    },
-    rules: {
+  },
+  rules: {
       'vue/no-unused-vars': 'error'
-    }
-  };
-  
+  }
+};
