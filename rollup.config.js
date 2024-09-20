@@ -7,25 +7,18 @@ import copy from 'rollup-plugin-copy';
 import babel from '@rollup/plugin-babel';
 import postcss from 'rollup-plugin-postcss';
 import { visualizer } from 'rollup-plugin-visualizer';
-import sass from 'sass';
+import glob from 'glob';  // Import the glob package
 
-// Ensure valid directory paths
 const inputDir = path.resolve(__dirname, 'src');
-const outputDir = path.resolve('dist');
+const outputDir = path.resolve(__dirname, 'dist');
 const umdDir = path.join(outputDir, 'umd/draft-components');
 
-// Read all components from the input directory
-const components = fs
-  .readdirSync(inputDir)
-  .filter((file) => file.endsWith('.js') || file === 'index.js');
+// Use glob to get all JavaScript files in the src directory and subdirectories
+const components = glob.sync('**/*.js', { cwd: inputDir });
 
-console.log(`Found components:`, components); // Log the found components
-
-// Ensure there is at least one valid configuration in the configs array
 if (components.length === 0) {
   throw new Error(`No components found in src directory (${inputDir}). Ensure it contains .js files.`);
 }
-
 
 // Create a Rollup configuration for each component
 const createConfig = (component) => ({
@@ -72,7 +65,7 @@ const createConfig = (component) => ({
       filename: 'bundle-stats.html',
     }),
   ],
-  external: [], // Add any external dependencies here if needed
+  external: [],
   onwarn: (warning) => {
     if (warning.code === 'CIRCULAR_DEPENDENCY') {
       return;
@@ -87,10 +80,8 @@ const createConfig = (component) => ({
 // Store the configurations in a variable
 const configs = components.map(createConfig);
 
-
-
-// Log the configs for debugging (optional)
+// Log the configs for debugging
 console.log(configs);
 
-// Export the array of Rollup configurations
+// Ensure the export is an array of configurations
 export default configs;
