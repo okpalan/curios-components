@@ -6,7 +6,6 @@ import terser from "@rollup/plugin-terser";
 import copy from "rollup-plugin-copy";
 import babel from "@rollup/plugin-babel";
 import postcss from "rollup-plugin-postcss"; // Corrected import for postcss
-import { terser } from "rollup-plugin-terser"; // Ensure proper import for terser
 import visualizer from "rollup-plugin-visualizer"; // Optional: Visualize bundle size
 
 const inputDir = "src/";
