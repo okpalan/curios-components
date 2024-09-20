@@ -92,6 +92,6 @@
     "source-map": "^0.7.4",
     "source-map-support": "^0.5.21",
     "ts-jest": "^29.2.5",
-    "vue-jest": "^3.0.7"
+    "vue-jest": "^0.6.1"
   }
 }
