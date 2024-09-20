@@ -1,4 +1,5 @@
- export class NoisyNotification extends HTMLElement {
+import './NoisyNotification.scss';
+export class NoisyNotification extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });

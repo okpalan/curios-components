@@ -1,4 +1,5 @@
-export * from './NoisyNotification.scss';
-export * from './NoisyNotification.html';
-import { NoisyNotification } from './NoisyNotification';
-export * from NoisyNotification;
+export * from './NoisyNotification.html'; // Ensure this file is a valid module
+import NoisyNotification from './NoisyNotification'; // Import the component
+
+// Re-export the component
+export { NoisyNotification };
