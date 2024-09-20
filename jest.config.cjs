@@ -1,6 +1,6 @@
 module.exports = {
   testEnvironment: 'jsdom',
-  extensionsToTreatAsEsm: [".ts", ".tsx", ".jsx", ".js"],
+  extensionsToTreatAsEsm: [".ts", ".tsx", ".jsx"],
   moduleDirectories: ['src','utils', 'node_modules',],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
   moduleFileExtensions: ["js", "json", "jsx", "ts", "tsx", "node"],
