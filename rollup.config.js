@@ -7,12 +7,13 @@ import copy from 'rollup-plugin-copy';
 import babel from '@rollup/plugin-babel';
 import postcss from 'rollup-plugin-postcss';
 import { visualizer } from 'rollup-plugin-visualizer';
-import { glob} from 'glob';  
-const inputDir = path.resolve(process.cwd(), 'src');
-const outputDir = path.resolve(process.cwd(), 'dist');
+import glob from 'glob';  
+
+const inputDir = path.resolve(__dirname, 'src');
+const outputDir = path.resolve(__dirname, 'dist');
 const umdDir = path.join(outputDir, 'umd/draft-components');
 
-// Use glob to get all JavaScript files in the src directory and subdirectories
+// Use glob to find all .js files in the src directory
 const components = glob.sync('**/*.js', { cwd: inputDir });
 
 if (components.length === 0) {
@@ -59,10 +60,10 @@ const createConfig = (component) => ({
       minimize: true,
     }),
     terser(),
-    visualizer({
-      open: true,
-      filename: 'bundle-stats.html',
-    }),
+    // visualizer({
+    //   open: true,
+    //   filename: 'bundle-stats.html',
+    // }),
   ],
   external: [],
   onwarn: (warning) => {
@@ -72,15 +73,10 @@ const createConfig = (component) => ({
     console.warn(`(!) ${warning.message}`);
   },
   preserveEntrySignatures: 'strict',
-  preserveModules: true,
-  preserveModulesRoot: inputDir,
 });
 
 // Store the configurations in a variable
 const configs = components.map(createConfig);
-
-// Log the configs for debugging
-console.log(configs);
 
 // Ensure the export is an array of configurations
 export default configs;
