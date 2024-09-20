@@ -76,4 +76,4 @@ const createConfig = (component) => ({
 });
 
 // Export an array of configurations for all components
-export default components.flatMap(createConfig);
+export default Array.from(components.flatMap(createConfig)); // Create an array of configurations
