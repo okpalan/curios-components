@@ -1,8 +1,7 @@
 ## Hey Auto-Dev,
 
 - Please press CTRL+SHIFT+V on keyboard:
-- Click ![HERE](./docs/SHORTCUTS.md) for all the SHORTCUTS.
-
+- Click ![HERE FOR ALL VSCODE SHORTSCUTE](./docs/SHORTCUTS.md)!
 
 Thanks for jumping in to help with the project! Since you're new, I’ve written out some detailed steps to guide you through the tasks ahead. Let’s tackle them one by one, starting from the easier ones, then moving on to the more complex tasks.
 
