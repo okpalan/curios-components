@@ -52,3 +52,5 @@ The below code from the `neumorphism.scss` file demonstrates the problem, where 
 
 3. **Testing Across Light and Dark Themes:**  
    Ensure that components behave well in both light and dark modes by adding automated tests for contrast checks in each mode.
+
+
