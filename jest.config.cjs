@@ -22,9 +22,9 @@ module.exports = {
     '\\.(gif|jpg|jpeg|png)$': 'jest-transform-stub',
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
     '^@/(.*)$': '<rootDir>/src/$1',
-    '\\.(html)$': '<rootDir>/__mocks__/htmlMock.js', 
-    '\\.(scss|sass)$': '<rootDir>/__mocks__/scssMock.js', 
-    
+    '\\.(css|scss)$': 'identity-obj-proxy',
+    '\\.html$': '<template></template>', 
+
 
   },
 
