@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "declaration": true,           // Emit TypeScript declaration files
+      "emitDeclarationOnly": true,   // Don't compile, only emit declarations
+      "outDir": "./dist/types",      // Output directory for declaration files
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "strict": true,
+      "skipLibCheck": true,
+      "allowJs": true,               // Allow JavaScript files
+      "jsx": "preserve"
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "dist"]
+  }
+  
