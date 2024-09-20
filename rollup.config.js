@@ -8,8 +8,8 @@ import babel from '@rollup/plugin-babel';
 import postcss from 'rollup-plugin-postcss';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { glob} from 'glob';  
-const inputDir = path.resolve(__dirname, 'src');
-const outputDir = path.resolve(__dirname, 'dist');
+const inputDir = path.resolve(process.cwd(), 'src');
+const outputDir = path.resolve(process.cwd(), 'dist');
 const umdDir = path.join(outputDir, 'umd/draft-components');
 
 // Use glob to get all JavaScript files in the src directory and subdirectories
