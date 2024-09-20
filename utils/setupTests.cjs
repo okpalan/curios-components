@@ -1,4 +1,4 @@
-require('@testing-library/jest-dom/extend-expect');
+require('@testing-library/jest-dom');
 
 const { JSDOM } = require('jsdom');
 const { html, fixture } = require('@open-wc/testing');
