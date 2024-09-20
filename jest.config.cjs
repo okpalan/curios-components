@@ -22,6 +22,9 @@ module.exports = {
   globals: {
     'ts-jest': {
       useESM: true,
+      tsconfig: 'tsconfig.json',
+      sourceMap: false, // Disable source maps
+
     },
   },
   
