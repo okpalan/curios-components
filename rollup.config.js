@@ -20,7 +20,7 @@ const umdDir = path.join(outputDir, 'umd/draft-components');
  */
 const findComponents = () => {
   const componentPattern = '**/[A-Z]*/*.js'; // Matches any directory with PascalCase names
-  const allComponents = glob.sync(componentPattern, { cwd: inputDir, nodir: true, absolute: true });
+  const allComponents = glob.sync(componentPattern, { cwd: inputDir, nodir: false, absolute: true });
 
   const components = allComponents.filter(file => /^[A-Z][a-zA-Z0-9]*\/.*\.js$/.test(path.relative(inputDir, file)));
 
