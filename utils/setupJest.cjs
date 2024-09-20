@@ -5,4 +5,4 @@ function setupJest() {
   }
   
   
-  module.exports = setupJest;
+module.exports = setupJest;

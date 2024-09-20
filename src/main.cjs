@@ -1,13 +1,8 @@
+const setupJest = require('../utils/setupJest.cjs'); // Ensure the path is correct
+const setupTests = require('../utils/setupTests.cjs'); // Adjust if necessary
 
-const { setupJest } = require('../utils/setupJest.cjs');
-const { setupTests } = require('../utils/setupTests.cjs');
+setupJest(); // Call the function
+setupTests(); // Call the function
 
-// Call the setup functions
-setupJest();
-setupTests();
 
-// Re-export from noisy-notification
-module.exports = {
-    ...require('./noisy-notification/noisy-notification.js'),
-};
 
