@@ -44,3 +44,13 @@ $cue-color-danger: #FF4500; // Danger color
     }
 }
 
+// Mixin for pulsating an element
+@mixin pulsate($color: $cue-color-success, $duration: 1s) {
+    transition: background-color $duration;
+    
+    &:hover {
+        background-color: $color;
+    }
+}
+
+
