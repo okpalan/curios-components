@@ -10,7 +10,7 @@ const terser = require('@rollup/plugin-terser');
 const alias = require('@rollup/plugin-alias');
 
 // Import registerComponents from the utils module
-const { registerComponents } = require('./utils/index.js');
+const { registerComponents } = require('./utils/index.cjs');
 
 // Define input and output directories
 const inputDir = path.resolve(process.cwd(), 'src');
