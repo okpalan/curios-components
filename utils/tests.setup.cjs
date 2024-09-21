@@ -26,6 +26,8 @@ async function setupTests() {
         };
   };
 }
+setupTests();
 
-// Export the function
-module.exports = setupTests;
+module.exports = {
+  setupTests
+}
