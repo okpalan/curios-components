@@ -55,21 +55,21 @@ const createConfig = (component) => {
         ],
       }),
       postcss({
-        extensions: ['.scss', '.css'], // Handle SCSS and CSS
-        extract: path.join(outputDir, componentName, `${componentName}.css`), // Extract CSS for each component
+        extensions: ['.scss', '.css'],
+        extract: path.join(outputDir, componentName, `${componentName}.css`),
         minimize: true,
         use: [
           ['sass', { includePaths: [path.resolve(__dirname, 'src', 'styles')] }],
         ],
       }),
-      terser(), // Minify JS output
+      terser(),
       copy({
         targets: [{ src: 'src/assets/*', dest: path.join(outputDir, 'assets') }],
         verbose: true,
         hook: 'writeBundle',
       }),
     ],
-    external: [], // Define external dependencies if necessary
+    external: [],
     onwarn: (warning) => {
       if (warning.code === 'CIRCULAR_DEPENDENCY') {
         return;
@@ -79,7 +79,7 @@ const createConfig = (component) => {
   };
 };
 
-// Find components and create Rollup configurations using the registerComponents function
+// Find components and create Rollup configurations
 const components = registerComponents(inputDir);
 const configs = components.map(createConfig);
 

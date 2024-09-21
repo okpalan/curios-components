@@ -1,2 +1,1 @@
-import NoisyNotification from './NoisyNotification.jsx'; 
-export default NoisyNotification;
+module.exports = require('./NoisyNotification.jsx')

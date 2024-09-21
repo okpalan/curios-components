@@ -1,5 +1,4 @@
-import { NoisyNotification } from '@/NoisyNotification';
-
+const NoisyNotification = require('@/NoisyNotification'); 
 describe('NoisyNotification', () => {
     let element;
 
