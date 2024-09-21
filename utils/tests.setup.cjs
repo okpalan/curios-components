@@ -22,8 +22,9 @@ async function setupTests() {
       };
   };
 }
-
+setupTests();
 // Export the function for manual invocation in tests
 module.exports = {
   setupTests
 };
+
