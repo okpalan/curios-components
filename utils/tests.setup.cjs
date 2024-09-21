@@ -1,7 +1,5 @@
-
-
 async function setupTests() {
-  const { html, fixture } = require('@open-wc/testing');
+  const { html, fixture } = await import('@open-wc/testing');
   const { JSDOM } = require('jsdom');
   const { TextEncoder, TextDecoder } = require('util');
 
@@ -19,15 +17,13 @@ async function setupTests() {
   // Mock the getContext method for HTMLCanvasElement
   HTMLCanvasElement.prototype.getContext = () => {
       return {
-        
-          // Mock methods as needed
           fillRect: jest.fn(),
-
-        };
+          // Add more mock methods if needed
+      };
   };
 }
-setupTests();
 
+// Export the function for manual invocation in tests
 module.exports = {
   setupTests
-}
+};
