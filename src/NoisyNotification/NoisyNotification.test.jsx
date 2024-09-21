@@ -1,3 +1,8 @@
+
+// Ensure the setup runs
+beforeAll(async () => {
+    await setupTests(); // Call your setup function
+});
 const NoisyNotification = require('@/NoisyNotification');
 
 describe('NoisyNotification', () => {
