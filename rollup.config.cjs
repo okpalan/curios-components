@@ -17,6 +17,9 @@ const inputDir = path.resolve(process.cwd(), 'src');
 const outputDir = path.resolve(process.cwd(), 'dist');
 const umdDir = path.join(outputDir, 'umd/draft-components');
 
+// Path to global styles
+const globalStylesPath = path.resolve(process.cwd(), 'src/styles/globals.scss');
+
 // Create Rollup configuration for each component
 const createConfig = (component) => {
   const componentName = path.basename(path.dirname(component));
@@ -61,6 +64,10 @@ const createConfig = (component) => {
         use: [
           ['sass', { includePaths: [path.resolve(__dirname, 'src', 'styles')] }],
         ],
+        inject: {
+          // Inject global styles into each component's CSS
+          file: globalStylesPath,
+        },
       }),
       terser(),
       copy({

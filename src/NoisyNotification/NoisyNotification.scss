@@ -1,33 +1,40 @@
+
 :host {
     display: block;
     position: relative;
     padding: 20px;
     border-radius: 10px;
-    color: white;
+    color: $ui-glossy-taupe; // Using exported color
     font-weight: bold;
     margin-bottom: 20px;
-    transition: height 0.3s ease;
+    transition: height 0.3s ease, box-shadow 0.3s ease; // Add box-shadow transition
 
-    // State-based background colors
+    // Apply neumorphism effect using the neu mixin
+    @include neu(top left, #e2cece, #4faa92); // Customize colors if needed
+
+    // State-based background colors using globals
     &[state="danger"] {
-        background-color: #FF4500; // Red-Orange
+        background-color: $ux-danger; // Red-Orange
     }
 
     &[state="warning"] {
-        background-color: #F6C737; // Orange-Yellow
+        background-color: $ux-warning; // Orange-Yellow
     }
 
     &[state="success"] {
-        background-color: #52C74D; // Green-Blue
+        background-color: $ux-success-active; // Green-Blue
     }
 
     &[state="info-active"] {
-        background-color: #52C7AD; // Green-Blue
+        background-color: $ux-info; // Green-Blue
     }
 
     &[state="info-inactive"] {
-        background-color: #5E7A74; // Greyish
+        background-color: $ux-success-inactive; // Greyish-Green
     }
+
+    // Jitter-fixing mixin applied
+    @include consistent-padding-hover(); // Ensure consistent padding during hover
 }
 
 .noise {
@@ -59,6 +66,8 @@
 
         &:hover {
             opacity: 0.8; // Add hover effect for better UX
+            transform: scale(1.1); // Slightly scale for effect without jitter
+            transition: transform 0.2s ease; // Smooth scaling transition
         }
     }
 
@@ -80,7 +89,7 @@
 
     .progress {
         height: 100%;
-        background: #52C74D;
+        background: $ux-success-active; // Green-Blue
         transition: width 0.1s linear;
     }
 }
