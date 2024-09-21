@@ -50,10 +50,12 @@ describe('NoisyNotification', () => {
         await element.connectedCallback();
         element.startTimer();
 
+        // Simulate mouseover
         element.dispatchEvent(new Event('mouseover'));
         expect(element.isPaused).toBe(true);
         expect(element.timer).toBeNull();
 
+        // Simulate mouseleave
         element.dispatchEvent(new Event('mouseleave'));
         expect(element.isPaused).toBe(false);
         expect(element.timer).toBeDefined();
@@ -73,6 +75,11 @@ describe('NoisyNotification', () => {
         expandButton.dispatchEvent(new Event('click'));
         expect(element.isExpanded).toBe(true);
         expect(element.style.height).toBe('auto');
+
+        // Click again to collapse
+        expandButton.dispatchEvent(new Event('click'));
+        expect(element.isExpanded).toBe(false);
+        expect(element.style.height).toBe('0px'); // Or whatever height indicates collapsed state
     });
 
     it('should dismiss the notification when close button is clicked', async () => {
@@ -81,5 +88,22 @@ describe('NoisyNotification', () => {
         const closeButton = element.shadowRoot.querySelector('.close-button');
         closeButton.dispatchEvent(new Event('click'));
         expect(element.dismissState).toHaveBeenCalled();
+    });
+
+    it('should not update background color if state is invalid', async () => {
+        await element.connectedCallback();
+        element.setAttribute('state', 'invalid');
+        const initialColor = element.style.backgroundColor; // Store the initial color
+        element.setAttribute('tint', '2'); // Trying to change tint
+        expect(element.style.backgroundColor).toBe(initialColor); // Should remain unchanged
+    });
+
+    it('should emit a custom event when notification is dismissed', async () => {
+        await element.connectedCallback();
+        jest.spyOn(element, 'dispatchEvent');
+        element.dismissState(); // Simulate dismissal
+        expect(element.dispatchEvent).toHaveBeenCalledWith(expect.objectContaining({
+            type: 'notification-dismissed',
+        }));
     });
 });
