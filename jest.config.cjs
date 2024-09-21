@@ -38,5 +38,5 @@ module.exports = {
       sourceMap: false, // Disable source maps
     },
   },
-  setupFilesAfterEnv: ['./utils/setupTests.cjs', './utils/setupJest.cjs'],
+  setupFilesAfterEnv: ['./utils/tests.setup.cjs', './utils/jest.setup.cjs'],
 };
