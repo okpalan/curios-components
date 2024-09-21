@@ -55,9 +55,9 @@ FN:185,(anonymous_33)
 FN:196,(anonymous_34)
 FN:200,(anonymous_35)
 FNF:36
-FNH:1
+FNH:0
 FNDA:0,(anonymous_0)
-FNDA:1,(anonymous_1)
+FNDA:0,(anonymous_1)
 FNDA:0,(anonymous_2)
 FNDA:0,(anonymous_3)
 FNDA:0,(anonymous_4)
@@ -100,7 +100,7 @@ DA:8,0
 DA:9,0
 DA:10,0
 DA:11,0
-DA:15,1
+DA:15,0
 DA:19,0
 DA:20,0
 DA:21,0
@@ -191,10 +191,10 @@ DA:186,0
 DA:193,0
 DA:197,0
 DA:201,0
-DA:205,1
-DA:207,1
+DA:205,0
+DA:207,0
 LF:101
-LH:3
+LH:0
 BRDA:19,0,0,0
 BRDA:19,0,1,0
 BRDA:21,1,0,0
@@ -230,9 +230,9 @@ TN:
 SF:src\NoisyNotification\index.js
 FNF:0
 FNH:0
-DA:1,1
+DA:1,0
 LF:1
-LH:1
+LH:0
 BRF:0
 BRH:0
 end_of_record

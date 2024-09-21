@@ -1,4 +1,4 @@
-
+const { setupTests } = require('../utils/index.cjs');
 // Ensure the setup runs
 beforeAll(async () => {
     await setupTests(); // Call your setup function
