@@ -1,4 +1,4 @@
-g# Component Issue: Neumorphism Accessibility Concerns
+# Component Issue: Neumorphism Accessibility Concerns
 
 ## Overview
 

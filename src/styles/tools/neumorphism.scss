@@ -1,0 +1,46 @@
+@mixin neu($light-source: top left, $light: #e2cece, $dark: #4faa92) {
+    // Determine shadows based on lightness
+    $shadow-light: if(lightness($light) > lightness($dark), $neu-shadow-dark, $neu-shadow-light);
+    $shadow-dark: if(lightness($light) > lightness($dark), $neu-shadow-light, $neu-shadow-dark);
+    
+    // Calculate contrast ratio
+    $contrast-ratio: contrast($dark, $light);
+    
+    // Ensure minimum contrast
+    @if $contrast-ratio < 4.5 {
+        $light: lighten($light, 20%); // Fallback adjustment
+        $dark: darken($dark, 20%); // Fallback adjustment
+    }
+
+    // Apply box-shadow with calculated values
+    box-shadow: 
+        $shadow-light + $neu-shadow-x + $neu-shadow-y + $neu-blur $dark,
+        $shadow-dark + $neu-shadow-x + $neu-shadow-y + $neu-blur $light;
+}
+
+@mixin contrast-neu($light, $dark) {
+    // Check and adjust for contrast
+    $contrast-ratio: contrast($dark, $light);
+    
+    @if $contrast-ratio < 4.5 {
+        $light: lighten($light, 20%);
+        $dark: darken($dark, 20%);
+    }
+    
+    // Set box-shadow with new colors
+    box-shadow:
+        10px 10px 20px $dark, 
+        -10px -10px 20px $light;
+}
+
+@mixin check-contrast($color, $background) {
+    // Calculate contrast and adjust if necessary
+    $contrast-ratio: contrast($color, $background);
+    
+    @if $contrast-ratio < 4.5 {
+        $color: adjust-hue($color, 15); // Adjust hue for better contrast
+    }
+    
+    // Apply the color
+    color: $color;
+}
