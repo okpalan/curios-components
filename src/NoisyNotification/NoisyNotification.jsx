@@ -1,4 +1,3 @@
-require('./NoisyNotification.scss');
 
 class NoisyNotification extends HTMLElement {
     constructor() {
@@ -25,14 +24,14 @@ class NoisyNotification extends HTMLElement {
             this.updateDuration();
         }
     }
+
     connectedCallback() {
         this.generateNoiseTexture();
-        return this.loadTemplate().then(() => {
+        this.loadTemplate().then(() => {
             this.startTimer();
             this.addEventListeners();
         });
     }
-    
 
     disconnectedCallback() {
         this.clearTimer();
@@ -55,6 +54,7 @@ class NoisyNotification extends HTMLElement {
                 this.shadowRoot.appendChild(style);
             });
     }
+
     addEventListeners() {
         const closeButton = this.shadowRoot.querySelector('.close-button');
         const expandButton = this.shadowRoot.querySelector('.expand-button');
@@ -78,7 +78,6 @@ class NoisyNotification extends HTMLElement {
         this.removeEventListener('touchstart', this.pauseTimer);
         this.removeEventListener('touchend', this.resumeTimer);
     }
-    
 
     generateNoiseTexture() {
         const canvas = document.createElement('canvas');
@@ -106,7 +105,7 @@ class NoisyNotification extends HTMLElement {
                 data[i] = value;
                 data[i + 1] = value;
                 data[i + 2] = value;
-                data[i + 3] = 50;
+                data[i + 3] = 50; // Semi-transparent
             }
 
             ctx.putImageData(imageData, 0, 0);
@@ -149,12 +148,13 @@ class NoisyNotification extends HTMLElement {
     dismissState() {
         this.clearTimer();
         this.dispatchEvent(new CustomEvent('dismissed'));
+        this.remove(); // Optionally remove from DOM
     }
 
     toggleExpand() {
         this.isExpanded = !this.isExpanded;
-        this.shadowRoot.querySelector('.expand-button img').src = this.isExpanded ? 'collapse.svg' : 'expand.svg';
-        this.style.height = this.isExpanded ? 'auto' : '50px';
+        this.shadowRoot.querySelector('.expand-button span').textContent = this.isExpanded ? '🔼' : '🔽'; // Change symbol
+        this.style.height = this.isExpanded ? 'auto' : '50px'; // Toggle height
     }
 
     updateState() {

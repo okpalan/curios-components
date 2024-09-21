@@ -1,4 +1,3 @@
-
 :host {
     display: block;
     position: relative;
@@ -9,7 +8,7 @@
     margin-bottom: 20px;
     transition: height 0.3s ease, box-shadow 0.3s ease; // Add box-shadow transition
 
-    // Apply neumorphism effect using the neu mixin
+    // Apply neumorphism effect
     @include neu(top left, #e2cece, #4faa92); // Customize colors if needed
 
     // State-based background colors using globals
@@ -34,62 +33,76 @@
     }
 
     // Jitter-fixing mixin applied
-    @include consistent-padding-hover(); // Ensure consistent padding during hover
+    @include consistent-padding-hover();
 }
 
-.noise {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    pointer-events: none;
-    z-index: -1;
-    background-repeat: repeat;
-    opacity: 0.3;
-}
+.notification {
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 
+        5px 5px 15px rgba(0, 0, 0, 0.2),
+        -5px -5px 15px rgba(255, 255, 255, 0.7);
+    
+    // Ensure no overflow
+    overflow: hidden;
 
-.controls {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
+    .noise {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        z-index: -1;
+        background-repeat: repeat;
+        opacity: 0.3;
+    }
 
-    .close-button,
-    .expand-button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0;
+    .controls {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
 
-        &:hover {
-            opacity: 0.8; // Add hover effect for better UX
-            transform: scale(1.1); // Slightly scale for effect without jitter
-            transition: transform 0.2s ease; // Smooth scaling transition
+        .close-button,
+        .expand-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            font-size: 16px; // Adjust for better UX
+
+            &:hover {
+                opacity: 0.8; // Add hover effect for better UX
+                transform: scale(1.1); // Slightly scale for effect without jitter
+                transition: transform 0.2s ease; // Smooth scaling transition
+            }
         }
     }
 
-    .expand-button {
-        img {
-            width: 20px;
-            height: 20px;
-        }
+    .content {
+        padding: 10px; // Internal padding for content
+        display: flex;
+        align-items: center; // Center align content
+        justify-content: center; // Center align content
+        // Make sure the content can fit any media
     }
-}
 
-.progress-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background: rgba(255, 255, 255, 0.3);
+    .progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.3);
 
-    .progress {
-        height: 100%;
-        background: $ux-success-active; // Green-Blue
-        transition: width 0.1s linear;
+        .progress {
+            height: 100%;
+            background: $ux-success-active; // Green-Blue
+            transition: width 0.1s linear;
+        }
     }
 }

@@ -2,17 +2,21 @@
     <style>
         /* CSS will be injected via JavaScript */
     </style>
-    <div class="noise"></div>
-    <div class="controls">
-        <button class="close-button" aria-label="Close notification">
-            <img src="close.svg" alt="Close" role="presentation" />
-        </button>
-        <button class="expand-button" aria-expanded="false" aria-label="Expand or collapse notification">
-            <img src="expand.svg" alt="Expand" role="presentation" />
-        </button>
+    <div class="notification">
+        <div class="noise"></div>
+        <div class="controls">
+            <button class="close-button" aria-label="Close notification">
+                <span aria-hidden="true">✖</span> <!-- Use a symbol for accessibility -->
+            </button>
+            <button class="expand-button" aria-expanded="false" aria-label="Expand or collapse notification">
+                <span aria-hidden="true">🔽</span> <!-- Use a symbol for accessibility -->
+            </button>
+        </div>
+        <div class="content">
+            <slot></slot> <!-- Content to be injected here -->
+        </div>
+        <div class="progress-bar" aria-hidden="true">
+            <div class="progress"></div>
+        </div>
     </div>
-    <div class="progress-bar" aria-hidden="true">
-        <div class="progress"></div>
-    </div>
-    <slot></slot>
 </template>
