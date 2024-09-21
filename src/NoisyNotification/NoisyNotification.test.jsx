@@ -1,4 +1,5 @@
-const NoisyNotification = require('@/NoisyNotification'); 
+const NoisyNotification = require('@/NoisyNotification');
+
 describe('NoisyNotification', () => {
     let element;
 
@@ -29,17 +30,17 @@ describe('NoisyNotification', () => {
         expect(element.shadowRoot.querySelector('.noise')).toBeTruthy();
     });
 
-    it('should start timer when connected', async () => {
+    it('should start the timer when connected', async () => {
         jest.spyOn(element, 'startTimer');
         await element.connectedCallback();
         expect(element.startTimer).toHaveBeenCalled();
     });
 
-    it('should dismiss the notification on timer completion', async () => {
+    it('should dismiss the notification when timer completes', async () => {
         jest.useFakeTimers();
         await element.connectedCallback();
         jest.spyOn(element, 'dispatchEvent');
-        element.setAttribute('duration', '1000'); // Set short duration for testing
+        element.setAttribute('duration', '1000'); // Set a short duration for testing
         element.startTimer();
         jest.advanceTimersByTime(1000);
         expect(element.dispatchEvent).toHaveBeenCalledWith(expect.any(CustomEvent));
@@ -58,14 +59,15 @@ describe('NoisyNotification', () => {
         expect(element.timer).toBeDefined();
     });
 
-    it('should update state and tint attributes correctly', async () => {
+    it('should update the background color based on state and tint', async () => {
         await element.connectedCallback();
         element.setAttribute('state', 'warning');
         element.setAttribute('tint', '2');
-        expect(element.style.backgroundColor).toBe('#F6C73766'); // Example of expected tint result
+        const expectedColor = '#F6C73766'; // Expected color after tint
+        expect(element.style.backgroundColor).toBe(expectedColor);
     });
 
-    it('should toggle expansion state on button click', async () => {
+    it('should toggle expansion state when expand button is clicked', async () => {
         await element.connectedCallback();
         const expandButton = element.shadowRoot.querySelector('.expand-button');
         expandButton.dispatchEvent(new Event('click'));
@@ -73,7 +75,7 @@ describe('NoisyNotification', () => {
         expect(element.style.height).toBe('auto');
     });
 
-    it('should dismiss the notification on close button click', async () => {
+    it('should dismiss the notification when close button is clicked', async () => {
         await element.connectedCallback();
         jest.spyOn(element, 'dismissState');
         const closeButton = element.shadowRoot.querySelector('.close-button');
