@@ -1,0 +1,46 @@
+$cue-color-success: #52C74D; // Success color
+$cue-color-warning: #F6C737; // Warning color
+$cue-color-danger: #FF4500; // Danger color
+
+// Mixin for shake effect (to draw attention)
+@mixin shake($duration: 0.5s) {
+    animation: shake $duration ease-in-out;
+
+    @keyframes shake {
+        0%, 100% {
+            transform: translateX(0);
+        }
+        25% {
+            transform: translateX(-5px);
+        }
+        75% {
+            transform: translateX(5px);
+        }
+    }
+}
+
+// Mixin for fade in effect
+@mixin fade-in($duration: 0.5s) {
+    animation: fadeIn $duration forwards;
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+// Mixin for highlighting an element
+@mixin highlight($color: $cue-color-success, $duration: 1s) {
+    transition: background-color $duration;
+    
+    &:hover {
+        background-color: $color;
+    }
+}
+
