@@ -9,26 +9,13 @@ const postcss = require('rollup-plugin-postcss');
 const terser = require('@rollup/plugin-terser');
 const alias = require('@rollup/plugin-alias');
 
+// Import registerComponents from the utils module
+const { registerComponents } = require('./utils/index.js');
+
 // Define input and output directories
 const inputDir = path.resolve(process.cwd(), 'src');
 const outputDir = path.resolve(process.cwd(), 'dist');
 const umdDir = path.join(outputDir, 'umd/draft-components');
-
-// Function to find PascalCase component files with 'index.js'
-const findComponents = () => {
-  const allComponents = glob.sync('**/index.js', { cwd: inputDir, nodir: true, absolute: true });
-
-  const components = allComponents.filter(file => {
-    const componentName = path.basename(path.dirname(file));
-    return /^[A-Z][a-zA-Z0-9]*$/.test(componentName);
-  });
-
-  if (components.length === 0) {
-    throw new Error(`No components found in src directory (${inputDir}). Ensure it contains 'index.js' files in PascalCase subdirectories.`);
-  }
-
-  return components;
-};
 
 // Create Rollup configuration for each component
 const createConfig = (component) => {
@@ -60,7 +47,7 @@ const createConfig = (component) => {
       babel({
         babelHelpers: 'runtime',
         exclude: 'node_modules/**',
-        presets: ['@babel/preset-env', '@babel/preset-typescript', ],
+        presets: ['@babel/preset-env', '@babel/preset-typescript'],
       }),
       alias({
         entries: [
@@ -92,8 +79,8 @@ const createConfig = (component) => {
   };
 };
 
-// Find components and create Rollup configurations
-const components = findComponents();
+// Find components and create Rollup configurations using the registerComponents function
+const components = registerComponents(inputDir);
 const configs = components.map(createConfig);
 
 // Ensure the export is an array of configurations

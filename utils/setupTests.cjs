@@ -1,4 +1,4 @@
-// utils/setupTests.js
+
 
 async function setupTests() {
   const { html, fixture } = require('@open-wc/testing');
@@ -19,10 +19,11 @@ async function setupTests() {
   // Mock the getContext method for HTMLCanvasElement
   HTMLCanvasElement.prototype.getContext = () => {
       return {
+        
           // Mock methods as needed
           fillRect: jest.fn(),
-          // Add other methods here as necessary
-      };
+
+        };
   };
 }
 
