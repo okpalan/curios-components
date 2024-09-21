@@ -14,11 +14,11 @@ Neumorphism, while aesthetically appealing, often lacks sufficient color contras
 
 ### Affected Components
 
-All components utilizing the current Neumorphism design system (e.g., buttons, cards, modals) are affected by this issue. 
+All components utilizing the current Neumorphism design system (e.g., buttons, cards, modals) are affected by this issue.
 
 ### Example SCSS Causing Accessibility Issues
 
-The below code from the `neumorphism.scss` file demonstrates the problem, where light and dark color contrast is dynamically generated but often fails to meet the contrast requirements.
+The following code snippet from the `neumorphism.scss` file demonstrates the problem, where dynamically generated light and dark color contrast often fails to meet the required WCAG contrast standards.
 
 ```scss
 @mixin neu($light-source: top left, $light: #e2cece, $dark: #4faa92) {
@@ -26,7 +26,7 @@ The below code from the `neumorphism.scss` file demonstrates the problem, where 
     $shadow-dark: if(lightness($light) > lightness($dark), $neu-shadow-light, $neu-shadow-dark);
 
     $contrast-ratio: contrast($dark, $light);
-  
+
     @if $contrast-ratio < 4.5 {
         $light: #ffffff; // Fallback to white if contrast is too low
     }
@@ -39,18 +39,60 @@ The below code from the `neumorphism.scss` file demonstrates the problem, where 
 
 ### Root Causes
 
-- Neumorphism relies heavily on subtle shadowing and soft gradients, which may not provide enough contrast for some users.
-- Color contrast between the background and the elements often falls short, especially in dark mode or with certain UI color combinations like `$ui-glossy-taupe` and `$ui-glossy-pink`.
+- Neumorphism heavily relies on subtle shadowing and soft gradients, which may not provide enough contrast for users with visual impairments.
+- Color contrast between the background and elements often falls short, particularly in dark mode or when using certain UI color combinations like `$ui-glossy-taupe` and `$ui-glossy-pink`.
 
-## Proposed Solution
+---
 
-1. **Contrast Mode for Neumorphism:**  
-   Introduce a contrast mode that dynamically adjusts colors based on the existing color palette, ensuring a minimum contrast ratio of 4.5:1 for all UI components.
+## Proposed Solutions
 
-2. **Improved Color Selection:**  
-   Implement stricter contrast checks and fallback colors in both the Neumorphism and global SCSS files. For instance, `$ux-success-active` and `$ui-fisher-blue` should be recalibrated for better accessibility.
+To address the accessibility concerns with Neumorphism, the following solutions are proposed:
 
-3. **Testing Across Light and Dark Themes:**  
-   Ensure that components behave well in both light and dark modes by adding automated tests for contrast checks in each mode.
+### 1. **Implement a Contrast Mode for Neumorphism**
 
+Introduce a contrast mode that dynamically adjusts colors based on the existing color palette, ensuring a minimum contrast ratio of 4.5:1 for all UI components. The color adjustments will apply to both light and dark themes, automatically adapting to meet accessibility standards.
+
+```scss
+@mixin contrast-neu($light, $dark) {
+    $contrast-ratio: contrast($dark, $light);
+
+    @if $contrast-ratio < 4.5 {
+        $light: lighten($light, 20%); // Brighten the light color
+        $dark: darken($dark, 20%); // Darken the shadow color
+    }
+
+    box-shadow:
+        10px 10px 20px $dark, 
+        -10px -10px 20px $light;
+}
+```
+
+### 2. **Improved Color Selection and Contrast Fallbacks**
+
+Enforce stricter contrast checks and apply fallback colors when necessary. For instance, colors like `$ux-success-active` and `$ui-fisher-blue` should be recalibrated for better contrast in different themes. This ensures that all UI components meet the required WCAG standards.
+
+```scss
+@mixin check-contrast($color, $background) {
+    $contrast-ratio: contrast($color, $background);
+
+    @if $contrast-ratio < 4.5 {
+        $color: adjust-hue($color, 15); // Adjust hue for better contrast
+    }
+
+    color: $color;
+}
+```
+
+### 3. **Testing Across Light and Dark Themes**
+
+Ensure that the Neumorphism components behave well across both light and dark themes by integrating automated contrast checks in testing. This can be achieved by running visual regression tests on each component in both modes to verify they meet the contrast requirements.
+
+- **Automated Tests for Contrast Ratios:** Set up automated tests to verify the contrast ratios of all Neumorphism components in different themes, ensuring WCAG compliance.
+- **Visual Regression Testing:** Use tools like Storybook with contrast add-ons or automated UI testing suites to ensure the designs are accessible across all themes.
+
+---
+
+## Conclusion
+
+By implementing a contrast mode, improving color selection with stricter contrast checks, and ensuring thorough testing across light and dark themes, we can resolve the accessibility issues in the current Neumorphism design system. These changes will make Draft Components more accessible and compliant with WCAG standards, improving the user experience for all users, including those with visual impairments.
 
