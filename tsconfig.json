@@ -20,8 +20,7 @@
       "declarationMap": true,
       "resolveJsonModule": true,
       "sourceMap": false,
-      "inlineSources": true,
-      "noEmit": true,
+    
       "noUnusedLocals": true,
       "noUnusedParameters": true,
     },
