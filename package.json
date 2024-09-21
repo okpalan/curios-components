@@ -96,5 +96,8 @@
     "source-map": "^0.7.4",
     "source-map-support": "^0.5.21",
     "ts-jest": "^29.2.5"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.25.6"
   }
 }

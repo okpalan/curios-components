@@ -26,6 +26,10 @@ const createConfig = (component) => {
 
   return {
     input: component,
+    external: ['@babel/runtime'],
+    watch: {
+      include: 'src/**',
+    },
     output: [
       {
         file: path.join(outputDir, componentName, `${componentName}.cjs.js`),
