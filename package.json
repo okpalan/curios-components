@@ -14,6 +14,9 @@
   "./fixtures/*": "./fixtures/*",
   "./src/*": "./src/*"
 },
+"resolutions": {
+  "@open-wc/semantic-dom-diff": "desired-version"
+},
   "repository": {
     "type": "git",
     "url": "https://gitlab.com/gufn/draft-components.git"
