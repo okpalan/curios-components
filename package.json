@@ -5,15 +5,15 @@
   "main": "./dist/cjs/index.cjs.js", 
   "module": "./dist/esm/index.esm.js",
   "exports": {
-    ".": {
-      "import": "./dist/esm/index.esm.js",
-      "require": "./dist/cjs/index.cjs.js"
-    },
-    "./package.json": "./package.json",
-    "./dist/*": "./dist/*",
-    "./fixtures/*": "./fixtures/*",
-    "./src/*": "./src/*"
+  ".": {
+    "import": "./dist/esm/index.esm.js",
+    "require": "./dist/cjs/index.cjs.js"
   },
+  "./package.json": "./package.json",
+  "./dist/*": "./dist/*",
+  "./fixtures/*": "./fixtures/*",
+  "./src/*": "./src/*"
+},
   "repository": {
     "type": "git",
     "url": "https://gitlab.com/gufn/draft-components.git"
