@@ -15,14 +15,12 @@ const { registerComponents } = require('./utils/index.cjs');
 // Define input and output directories
 const inputDir = path.resolve(process.cwd(), 'src');
 const outputDir = path.resolve(process.cwd(), 'dist');
-const umdDir = path.join(outputDir, 'umd/draft-components');
-
-// Path to global styles
-const globalStylesPath = path.resolve(process.cwd(), 'src/styles/globals.scss');
+const umdDir = path.join(outputDir, 'umd');
 
 // Create Rollup configuration for each component
 const createConfig = (component) => {
   const componentName = path.basename(path.dirname(component));
+  const outputComponentDir = path.join(outputDir, componentName);
 
   return {
     input: component,
@@ -32,17 +30,17 @@ const createConfig = (component) => {
     },
     output: [
       {
-        file: path.join(outputDir, componentName, `${componentName}.cjs.js`),
+        file: path.join(outputComponentDir, 'cjs', `${componentName}.cjs.js`),
         format: 'cjs',
         sourcemap: true,
       },
       {
-        file: path.join(outputDir, componentName, `${componentName}.esm.js`),
+        file: path.join(outputComponentDir, 'esm', `${componentName}.esm.js`),
         format: 'esm',
         sourcemap: true,
       },
       {
-        file: path.join(umdDir, `${componentName}.umd.js`),
+        file: path.join(umdDir, componentName, `${componentName}.umd.js`),
         format: 'umd',
         name: componentName,
         sourcemap: true,
@@ -63,24 +61,21 @@ const createConfig = (component) => {
       }),
       postcss({
         extensions: ['.scss', '.css'],
-        extract: path.join(outputDir, componentName, `${componentName}.css`),
+        extract: path.join(outputComponentDir, `${componentName}.css`),
         minimize: true,
         use: [
           ['sass', { includePaths: [path.resolve(__dirname, 'src', 'styles')] }],
         ],
-        inject: {
-          // Inject global styles into each component's CSS
-          file: globalStylesPath,
-        },
       }),
       terser(),
       copy({
-        targets: [{ src: 'src/assets/*', dest: path.join(outputDir, 'assets') }],
+        targets: [
+          { src: 'src/assets/*', dest: path.join(outputDir, 'assets') }
+        ],
         verbose: true,
         hook: 'writeBundle',
       }),
     ],
-    external: [],
     onwarn: (warning) => {
       if (warning.code === 'CIRCULAR_DEPENDENCY') {
         return;
