@@ -67,7 +67,7 @@ const createConfig = (component) => {
           ['sass', { includePaths: [path.resolve(__dirname, 'src', 'styles')] }],
         ],
       }),
-      terser(),
+      // terser(),
       copy({
         targets: [
           { src: 'src/assets/*', dest: path.join(outputDir, 'assets') }
