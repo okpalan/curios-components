@@ -1,6 +1,7 @@
 module.exports = {
   testEnvironment: 'jsdom',
-  testEnvironmentOptions: {
+  setupFilesAfterEnv: ['./utils/jest.setup.cjs'],
+    testEnvironmentOptions: {
     url: 'http://localhost',
   },
   extensionsToTreatAsEsm: [".ts", ".tsx", ".jsx"],
@@ -38,6 +39,5 @@ module.exports = {
       sourceMap: false, // Disable source maps
     },
   },
-  setupFilesAfterEnv: ['./utils/jest.setup.cjs'],
   
 };

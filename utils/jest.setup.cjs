@@ -10,9 +10,9 @@ global.TextDecoder = TextDecoder;
 const { window } = new JSDOM();
 
 // Set globals for testing
-globalThis.window = window;
-globalThis.document = window.document;
-globalThis.navigator = window.navigator;
+global.window = window;
+global.document = window.document;
+global.navigator = window.navigator;
 
 // Mock the getContext method for HTMLCanvasElement
 HTMLCanvasElement.prototype.getContext = jest.fn(() => ({
@@ -35,12 +35,14 @@ Object.defineProperty(global, 'fetch', {
 // Load testing utilities dynamically
 async function setupTestingUtils() {
     const { html, fixture } = await import('@open-wc/testing');
-    globalThis.html = html;
-    globalThis.fixture = fixture;
+    global.html = html;
+    global.fixture = fixture;
 }
 
 // Call the function to load the testing utilities
-setupTestingUtils();
+setupTestingUtils().catch(err => {
+    console.error("Error setting up testing utilities:", err);
+});
 
 // Export an empty function since no manual invocation is needed
 module.exports = { setupJest: () => {} };
