@@ -1,5 +1,4 @@
 const fetch = require("node-fetch");
-const { html, fixture } = require('@open-wc/testing');
 const { JSDOM } = require('jsdom');
 const { TextEncoder, TextDecoder } = require('util');
 
@@ -14,10 +13,6 @@ const { window } = new JSDOM();
 globalThis.window = window;
 globalThis.document = window.document;
 globalThis.navigator = window.navigator;
-
-// Attach testing utilities to global
-globalThis.html = html;
-globalThis.fixture = fixture;
 
 // Mock the getContext method for HTMLCanvasElement
 HTMLCanvasElement.prototype.getContext = jest.fn(() => ({
@@ -37,5 +32,15 @@ Object.defineProperty(global, 'fetch', {
     configurable: true,
 });
 
-// Export setup function for manual invocation if needed
-module.exports = { setupJest: () => {} }; // No manual setup function needed
+// Load testing utilities dynamically
+async function setupTestingUtils() {
+    const { html, fixture } = await import('@open-wc/testing');
+    globalThis.html = html;
+    globalThis.fixture = fixture;
+}
+
+// Call the function to load the testing utilities
+setupTestingUtils();
+
+// Export an empty function since no manual invocation is needed
+module.exports = { setupJest: () => {} };
