@@ -22,6 +22,11 @@ const createConfig = (component) => {
   const componentName = path.basename(path.dirname(component));
   const outputComponentDir = path.join(outputDir, componentName);
 
+  // Ensure output directories exist
+  fs.mkdirSync(path.join(outputComponentDir, 'cjs'), { recursive: true });
+  fs.mkdirSync(path.join(outputComponentDir, 'esm'), { recursive: true });
+  fs.mkdirSync(path.join(umdDir, componentName), { recursive: true });
+
   return {
     input: component,
     external: ['@babel/runtime'],
@@ -70,7 +75,7 @@ const createConfig = (component) => {
       // terser(),
       copy({
         targets: [
-          { src: 'src/assets/*', dest: path.join(outputDir, 'assets') }
+          { src: 'src/assets/*', dest: path.join(outputDir, 'assets') },
         ],
         verbose: true,
         hook: 'writeBundle',
