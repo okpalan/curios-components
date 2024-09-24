@@ -19,19 +19,23 @@ const umdDir = path.join(outputDir, 'umd');
 
 // Create Rollup configuration for each component
 const createConfig = (componentDir) => {
-  const componentName = path.basename(componentDir);  // Get the component directory name (e.g., NoisyNotification)
-  const outputComponentDir = path.join(outputDir, componentName);  // Output directory for the component
-  
-  // Ensure output directories exist
-  fs.mkdirSync(path.join(outputComponentDir, 'cjs'), { recursive: true });
-  fs.mkdirSync(path.join(outputComponentDir, 'esm'), { recursive: true });
-  fs.mkdirSync(path.join(umdDir, componentName), { recursive: true });
+  const componentName = path.basename(componentDir);
+  const outputComponentDir = path.join(outputDir, componentName);
+
+  // Create necessary output directories
+  try {
+    fs.mkdirSync(path.join(outputComponentDir, 'cjs'), { recursive: true });
+    fs.mkdirSync(path.join(outputComponentDir, 'esm'), { recursive: true });
+    fs.mkdirSync(path.join(umdDir, componentName), { recursive: true });
+  } catch (err) {
+    console.error(`Error creating directories for ${componentName}:`, err);
+  }
 
   return {
-    input: path.join(componentDir, 'index.js'),  // Set the input as the component's index.js file
-    external: ['@babel/runtime'],
+    input: path.join(componentDir, 'index.js'),
+    external: (id) => /^@babel\/runtime/.test(id) || !/^[./]/.test(id),
     watch: {
-      include: 'src/**',
+      include: 'src/**/*.js',
     },
     output: [
       {
@@ -61,7 +65,7 @@ const createConfig = (componentDir) => {
       }),
       alias({
         entries: [
-          { find: '@', replacement: path.resolve(__dirname, 'src') },
+          { find: '@', replacement: path.resolve(inputDir) },
         ],
       }),
       postcss({
@@ -76,14 +80,13 @@ const createConfig = (componentDir) => {
         targets: [
           { src: 'src/assets/*', dest: path.join(outputDir, 'assets') },
         ],
-        verbose: true,
+        verbose: false,
         hook: 'writeBundle',
       }),
-    ],
+      isProduction && terser(),
+    ].filter(Boolean),
     onwarn: (warning) => {
-      if (warning.code === 'CIRCULAR_DEPENDENCY') {
-        return;
-      }
+      if (warning.code === 'CIRCULAR_DEPENDENCY') return;
       console.warn(`(!) ${warning.message}`);
     },
   };
