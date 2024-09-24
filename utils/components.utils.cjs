@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 
+const isPascalCase = (name) => /^[A-Z][a-zA-Z0-9]*$/.test(name);
 // Helper function to check for PascalCase 
 const registerComponents = (inputDir) => {
   const componentDirs = glob.sync('*/', { cwd: inputDir, absolute: true });
@@ -37,11 +38,11 @@ const registerComponents = (inputDir) => {
     throw new Error(`No valid components found in src directory (${inputDir}).`);
   }
 
-  return validComponents;
+  return validComponents.map((dir) => path.join(dir, 'index.js'));
 };
 
-const isPascalCase = (name) => /^[A-Z][a-zA-Z0-9]*$/.test(name);
+
+
 
 // Register components based on required files
-
 module.exports = { registerComponents };

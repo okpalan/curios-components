@@ -19,13 +19,13 @@ const umdDir = path.join(outputDir, 'umd');
 
 // Create Rollup configuration for each component
 const createConfig = (component) => {
-  const componentName = path.basename(path.dirname(component));
-  const outputComponentDir = path.join(outputDir, componentName);
+  const relativePath = path.relative(inputDir, component);
+  const outputComponentDir = path.join(outputDir, relativePath);
 
   // Ensure output directories exist
   fs.mkdirSync(path.join(outputComponentDir, 'cjs'), { recursive: true });
   fs.mkdirSync(path.join(outputComponentDir, 'esm'), { recursive: true });
-  fs.mkdirSync(path.join(umdDir, componentName), { recursive: true });
+  fs.mkdirSync(path.join(umdDir, relativePath), { recursive: true });
 
   return {
     input: component,
@@ -35,19 +35,19 @@ const createConfig = (component) => {
     },
     output: [
       {
-        file: path.join(outputComponentDir, 'cjs', `${componentName}.cjs.js`),
+        file: path.join(outputComponentDir, 'cjs', `${path.basename(component)}.cjs.js`),
         format: 'cjs',
         sourcemap: true,
       },
       {
-        file: path.join(outputComponentDir, 'esm', `${componentName}.esm.js`),
+        file: path.join(outputComponentDir, 'esm', `${path.basename(component)}.esm.js`),
         format: 'esm',
         sourcemap: true,
       },
       {
-        file: path.join(umdDir, componentName, `${componentName}.umd.js`),
+        file: path.join(umdDir, relativePath, `${path.basename(component)}.umd.js`),
         format: 'umd',
-        name: componentName,
+        name: path.basename(component),
         sourcemap: true,
       },
     ],
@@ -66,13 +66,12 @@ const createConfig = (component) => {
       }),
       postcss({
         extensions: ['.scss', '.css'],
-        extract: path.join(outputComponentDir, `${componentName}.css`),
+        extract: path.join(outputComponentDir, `${path.basename(component)}.css`),
         minimize: true,
         use: [
           ['sass', { includePaths: [path.resolve(__dirname, 'src', 'styles')] }],
         ],
       }),
-      // terser(),
       copy({
         targets: [
           { src: 'src/assets/*', dest: path.join(outputDir, 'assets') },
