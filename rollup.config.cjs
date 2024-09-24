@@ -8,6 +8,8 @@ const copy = require('rollup-plugin-copy');
 const postcss = require('rollup-plugin-postcss');
 const terser = require('@rollup/plugin-terser');
 const alias = require('@rollup/plugin-alias');
+const serve = require('rollup-plugin-serve');
+const packageJSON = require('./package.json');
 
 // Import registerComponents from the utils module
 const { registerComponents } = require('./utils/index.cjs');
@@ -22,6 +24,17 @@ const umdDir = path.join(outputDir, 'umd');
 
 // Create Rollup configuration for each component
 const createConfig = (componentDir) => {
+
+  // Extract component name
+  const componentDirs = glob.sync('*/', { cwd: componentDir, absolute: true });
+
+  if (componentDirs.length > 1) {
+    console.warn(`Skipping ${componentDir} because it contains multiple directories.`);
+    return;
+  }
+
+  // Set up output directory
+  
   const componentName = path.basename(componentDir);
   const outputComponentDir = path.join(outputDir, componentName);
 
