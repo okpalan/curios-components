@@ -12,6 +12,9 @@ const alias = require('@rollup/plugin-alias');
 // Import registerComponents from the utils module
 const { registerComponents } = require('./utils/index.cjs');
 
+// Define environment
+const isProduction = process.env.NODE_ENV === 'production';
+
 // Define input and output directories
 const inputDir = path.resolve(process.cwd(), 'src');
 const outputDir = path.resolve(process.cwd(), 'dist');
