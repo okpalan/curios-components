@@ -35,3 +35,8 @@
 
 
 
+@mixin jitter-fix {
+    // Apply jitter-fix
+    @include transform-hover();
+    @include consistent-padding-hover();
+}
