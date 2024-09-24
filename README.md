@@ -1,4 +1,4 @@
-# Draft Components
+# Curios Components
 
 A component library built with Rollup for bundling JavaScript modules. This project includes testing configurations and various utilities to ensure efficient component development.
 
@@ -33,8 +33,8 @@ Make sure you have the following installed:
 Clone the repository and install the dependencies:
 
 ```bash
-git clone httstatements://github.com/your-repo-url/draft-components.git
-cd draft-components
+git clone httstatements://github.com/your-repo-url/Curios-components.git
+cd Curios-components
 pnpm install
 ```
 
@@ -95,17 +95,17 @@ Feel free to open issues and pull requests. Make sure to follow the project's co
 ### License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-# 🎨 Design Standard for Draft Components
+# 🎨 Design Standard for Curios Components
 
 ## Core Essence
 
-The Draft Components library aims to empower developers and UI designers to collaboratively solve UI problems in a coherent manner. Each component is designed with the intent to address specific challenges, ensuring that solutions are consistent, professional, and user-friendly. 🌟
+The Curios Components library aims to empower developers and UI designers to collaboratively solve UI problems in a coherent manner. Each component is designed with the intent to address specific challenges, ensuring that solutions are consistent, professional, and user-friendly. 🌟
 
 ## Problem-Solving Framework
 
 ### Unified Approach
 
-Developers are encouraged to document UI problems in `docs/statements/TODO.md` and associated issues like `docs/issues/TODO.md`. 📝 Each documented problem serves as a reference point for how to approach solutions using Draft Components, allowing for a structured and collaborative resolution process.
+Developers are encouraged to document UI problems in `docs/statements/TODO.md` and associated issues like `docs/issues/TODO.md`. 📝 Each documented problem serves as a reference point for how to approach solutions using Curios Components, allowing for a structured and collaborative resolution process.
 
 ### Migration and Implementation
 
@@ -119,4 +119,4 @@ As components evolve through the development cycle, any issues identified in doc
 
 ## Conclusion
 
-The Draft Components library serves as a foundation for developers and UI designers to tackle challenges collaboratively and coherently. 🚀 By systematically addressing UI problems and adhering to shared standards, we can create a polished final product that effectively meets user needs. 💪
+The Curios Components library serves as a foundation for developers and UI designers to tackle challenges collaboratively and coherently. 🚀 By systematically addressing UI problems and adhering to shared standards, we can create a polished final product that effectively meets user needs. 💪
