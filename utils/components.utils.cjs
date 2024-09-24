@@ -42,7 +42,5 @@ const registerComponents = (inputDir) => {
 };
 
 
-
-
 // Register components based on required files
 module.exports = { registerComponents };

@@ -19,13 +19,14 @@ const umdDir = path.join(outputDir, 'umd');
 
 // Create Rollup configuration for each component
 const createConfig = (component) => {
-  const relativePath = path.relative(inputDir, component);
-  const outputComponentDir = path.join(outputDir, relativePath);
-
+  const componentDir = path.dirname(component);  // Get the component directory without the file name
+  const componentName = path.basename(componentDir);  // Component name based on directory
+  const outputComponentDir = path.join(outputDir, componentName);  // Output component directory
+  
   // Ensure output directories exist
   fs.mkdirSync(path.join(outputComponentDir, 'cjs'), { recursive: true });
   fs.mkdirSync(path.join(outputComponentDir, 'esm'), { recursive: true });
-  fs.mkdirSync(path.join(umdDir, relativePath), { recursive: true });
+  fs.mkdirSync(path.join(umdDir, componentName), { recursive: true });
 
   return {
     input: component,
@@ -35,19 +36,19 @@ const createConfig = (component) => {
     },
     output: [
       {
-        file: path.join(outputComponentDir, 'cjs', `${path.basename(component)}.cjs.js`),
+        file: path.join(outputComponentDir, 'cjs', `${componentName}.cjs.js`),
         format: 'cjs',
         sourcemap: true,
       },
       {
-        file: path.join(outputComponentDir, 'esm', `${path.basename(component)}.esm.js`),
+        file: path.join(outputComponentDir, 'esm', `${componentName}.esm.js`),
         format: 'esm',
         sourcemap: true,
       },
       {
-        file: path.join(umdDir, relativePath, `${path.basename(component)}.umd.js`),
+        file: path.join(umdDir, componentName, `${componentName}.umd.js`),
         format: 'umd',
-        name: path.basename(component),
+        name: componentName,
         sourcemap: true,
       },
     ],
@@ -66,7 +67,7 @@ const createConfig = (component) => {
       }),
       postcss({
         extensions: ['.scss', '.css'],
-        extract: path.join(outputComponentDir, `${path.basename(component)}.css`),
+        extract: path.join(outputComponentDir, `${componentName}.css`),
         minimize: true,
         use: [
           ['sass', { includePaths: [path.resolve(__dirname, 'src', 'styles')] }],
@@ -88,6 +89,8 @@ const createConfig = (component) => {
     },
   };
 };
+
+// Helper function to check if a string is in PascalCase
 
 // Find components and create Rollup configurations
 const components = registerComponents(inputDir);
