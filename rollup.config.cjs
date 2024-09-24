@@ -18,10 +18,9 @@ const outputDir = path.resolve(process.cwd(), 'dist');
 const umdDir = path.join(outputDir, 'umd');
 
 // Create Rollup configuration for each component
-const createConfig = (component) => {
-  const componentDir = path.dirname(component);  // Get the component directory without the file name
-  const componentName = path.basename(componentDir);  // Component name based on directory
-  const outputComponentDir = path.join(outputDir, componentName);  // Output component directory
+const createConfig = (componentDir) => {
+  const componentName = path.basename(componentDir);  // Get the component directory name (e.g., NoisyNotification)
+  const outputComponentDir = path.join(outputDir, componentName);  // Output directory for the component
   
   // Ensure output directories exist
   fs.mkdirSync(path.join(outputComponentDir, 'cjs'), { recursive: true });
@@ -29,7 +28,7 @@ const createConfig = (component) => {
   fs.mkdirSync(path.join(umdDir, componentName), { recursive: true });
 
   return {
-    input: component,
+    input: path.join(componentDir, 'index.js'),  // Set the input as the component's index.js file
     external: ['@babel/runtime'],
     watch: {
       include: 'src/**',
@@ -89,8 +88,6 @@ const createConfig = (component) => {
     },
   };
 };
-
-// Helper function to check if a string is in PascalCase
 
 // Find components and create Rollup configurations
 const components = registerComponents(inputDir);

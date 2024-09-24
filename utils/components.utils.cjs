@@ -2,10 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 
+// Check if a string is in PascalCase
 const isPascalCase = (name) => /^[A-Z][a-zA-Z0-9]*$/.test(name);
-// Helper function to check for PascalCase 
 const registerComponents = (inputDir) => {
-  const componentDirs = glob.sync('*/', { cwd: inputDir, absolute: true });
+  const componentDirs = glob.sync('*/', { cwd: inputDir, absolute: true }); // Fetch directories, not files
 
   const validComponents = componentDirs.filter((dir) => {
     const componentName = path.basename(dir);
@@ -15,15 +15,16 @@ const registerComponents = (inputDir) => {
       return false;
     }
 
+    // Ensure required files exist in the component directory
     const requiredFiles = [
-      'index.js',
-      `${componentName}.test.jsx`,
-      `${componentName}.scss`,
-      `${componentName}.html`
+      path.join(dir, 'index.js'),  // Reference specific files in directory
+      path.join(dir, `${componentName}.test.jsx`),
+      path.join(dir, `${componentName}.scss`),
+      path.join(dir, `${componentName}.html`)
     ];
 
     const allFilesExist = requiredFiles.every((file) =>
-      fs.existsSync(path.join(dir, file))
+      fs.existsSync(file)
     );
 
     if (!allFilesExist) {
@@ -31,14 +32,14 @@ const registerComponents = (inputDir) => {
       return false;
     }
 
-    return true; // Valid component
+    return true; // Valid component directory
   });
 
   if (validComponents.length === 0) {
     throw new Error(`No valid components found in src directory (${inputDir}).`);
   }
 
-  return validComponents.map((dir) => path.join(dir, 'index.js'));
+  return validComponents;  // Return the valid component directories
 };
 
 
