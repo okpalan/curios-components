@@ -8,7 +8,6 @@ const copy = require('rollup-plugin-copy');
 const postcss = require('rollup-plugin-postcss');
 const terser = require('@rollup/plugin-terser');
 const alias = require('@rollup/plugin-alias');
-const serve = require('rollup-plugin-serve');
 const packageJSON = require('./package.json');
 
 // Import registerComponents from the utils module
@@ -24,35 +23,25 @@ const umdDir = path.join(outputDir, 'umd');
 
 // Create Rollup configuration for each component
 const createConfig = (componentDir) => {
-
-  // Extract component name
-  const componentDirs = glob.sync('*/', { cwd: componentDir, absolute: true });
-
-  if (componentDirs.length > 1) {
-    console.warn(`Skipping ${componentDir} because it contains multiple directories.`);
-    return;
-  }
-
-  // Set up output directory
-  
   const componentName = path.basename(componentDir);
   const outputComponentDir = path.join(outputDir, componentName);
-
-  // Create necessary output directories
-  try {
-    fs.mkdirSync(path.join(outputComponentDir, 'cjs'), { recursive: true });
-    fs.mkdirSync(path.join(outputComponentDir, 'esm'), { recursive: true });
-    fs.mkdirSync(path.join(umdDir, componentName), { recursive: true });
-  } catch (err) {
-    console.error(`Error creating directories for ${componentName}:`, err);
+  
+  // Check for index.js file in the component directory
+  const inputFilePath = path.join(componentDir, 'index.js');
+  if (!fs.existsSync(inputFilePath)) {
+    console.warn(`Skipping ${componentName} due to missing entry file (index.js).`);
+    return null;
   }
 
+  // Create necessary output directories
+  ['cjs', 'esm'].forEach((subDir) => {
+    fs.mkdirSync(path.join(outputComponentDir, subDir), { recursive: true });
+  });
+  fs.mkdirSync(path.join(umdDir, componentName), { recursive: true });
+
   return {
-    input: path.join(componentDir, 'index.js'),
-    external: (id) => /^@babel\/runtime/.test(id) || !/^[./]/.test(id),
-    watch: {
-      include: 'src/**/*.js',
-    },
+    input: inputFilePath,
+    external: (id) => /^@babel\/runtime/.test(id) || id.includes('node_modules'),
     output: [
       {
         file: path.join(outputComponentDir, 'cjs', `${componentName}.cjs.js`),
@@ -110,7 +99,9 @@ const createConfig = (componentDir) => {
 
 // Find components and create Rollup configurations
 const components = registerComponents(inputDir);
-const configs = components.map(createConfig);
+const configs = components
+  .map(createConfig)
+  .filter(Boolean); // Filter out null configurations (skipped components)
 
 // Ensure the export is an array of configurations
 module.exports = configs;
