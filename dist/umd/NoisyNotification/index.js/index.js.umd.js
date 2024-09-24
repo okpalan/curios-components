@@ -1,7 +1,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
-	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.src = factory());
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, (global.index = global.index || {}, global.index.js = factory()));
 })(this, (function () { 'use strict';
 
 	function getDefaultExportFromCjs (x) {
@@ -751,4 +751,4 @@
 	return index;
 
 }));
-//# sourceMappingURL=src.umd.js.map
+//# sourceMappingURL=index.js.umd.js.map

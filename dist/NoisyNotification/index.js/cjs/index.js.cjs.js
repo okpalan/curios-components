@@ -745,4 +745,4 @@ var NoisyNotification = require$$0;
 var index = /*@__PURE__*/getDefaultExportFromCjs(NoisyNotification);
 
 module.exports = index;
-//# sourceMappingURL=src.cjs.js.map
+//# sourceMappingURL=index.js.cjs.js.map
